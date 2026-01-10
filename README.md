@@ -11,18 +11,18 @@ Each episode builds on the previous one, gradually introducing concepts while ke
 ## 🎬 Episodes
 
 Each episode in the series has its **own Git branch**.  
-The `main` branch represents the latest stable state, while individual episode branches capture the code exactly as it appeared during that episode.
+The `main` branch contains information about the series and various episodes, while individual episode branches capture the code exactly as it appeared during that episode.
 
 Current episodes include:
 
-- **Episode 1 – Foundations**  
-  Getting things working with minimal structure. Establishing the baseline.
+- **Episode 1 – Mastering uv**  
+  An overview of the crazy amazing uv package management tool and how you can use it to manage packages and virtual environments.
 
-- **Episode 2 – Introducing Type Hints**  
-  Demonstrating how Python’s type system improves clarity, tooling, and correctness.
+- **Episode 2 – Mastering Type Hints**  
+  Demonstrating how Python’s type system improves clarity, tooling, and correctness - we also touch on Pydantic in this episode.
 
 > 📌 **Important:**  
-> To explore an episode, simply check out its corresponding branch:
+> To explore an episode browse to the branch on GitHub and start with the ReadMe file. All episodes have accompanying YouTube Episodes which you can find at youtube.com/@voyagerquests
 >
 > ```bash
 > git checkout episode-2
@@ -34,14 +34,10 @@ Current episodes include:
 
 ## 🧭 How This Repository Is Organized
 
-- **One repository**
+- **One repository for the series**
 - **One branch per episode**
-- **Incremental progression**
-
-This makes it easy to:
-- Compare changes between episodes
-- See *why* refactors were made
-- Follow along at your own pace
+- **Every episode's code and content stands on it's own**
+- **You do not have to watch previous episodes to follow along**
 
 ---
 
@@ -83,19 +79,6 @@ Throughout the series, you’ll explore:
 - Modern Python workflows
 
 The goal is not just to *write Python*, but to **master it**.
-
----
-
-## 🚀 Choose Your Path
-
-- **Explorer Track**  
-  Follow along, read the code, and observe the evolution.
-
-- **Builder Track**  
-  Check out each episode branch and implement the changes yourself.
-
-- **Deep Dive Track**  
-  Compare branches, experiment, and extend the ideas further.
 
 ---
 
