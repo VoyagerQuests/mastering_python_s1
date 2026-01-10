@@ -1,6 +1,11 @@
-from typing import Literal #, Annotated
-from pydantic import BaseModel, Field
+from typing import Literal, Annotated
 
+from pydantic import BaseModel, Field, ConfigDict
+
+
+# -----------------------------
+# Application & Domain models
+# -----------------------------
 
 AttributeName = Literal[
     "Might",
@@ -11,15 +16,18 @@ AttributeName = Literal[
     "Presence",
 ]
 
-#AttributeValue = Annotated[int, Field(ge=0, le=100)]
+AttributeValue = Annotated[int, Field(ge=0, le=100)]
+
 
 class Attributes(BaseModel):
-    Might: int = Field(ge=0, le=100)
-    Agility: int = Field(ge=0, le=100)
-    Vitality: int = Field(ge=0, le=100)
-    Insight: int = Field(ge=0, le=100)
-    Arcana: int = Field(ge=0, le=100)
-    Presence: int = Field(ge=0, le=100)
+    model_config = ConfigDict(validate_assignment=True)
+
+    Might: AttributeValue
+    Agility: AttributeValue
+    Vitality: AttributeValue
+    Insight: AttributeValue
+    Arcana: AttributeValue
+    Presence: AttributeValue
 
 
 class Character(BaseModel):

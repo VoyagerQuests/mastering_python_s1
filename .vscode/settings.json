@@ -66,5 +66,7 @@
 //  "terminal.integrated.defaultLocation": "editor",
 
 // Cursor
-"editor.cursorBlinking": "solid"
+"editor.cursorBlinking": "solid",
+
+
 }
