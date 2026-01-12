@@ -1,12 +1,12 @@
 {
-  "editor.fontSize": 14,
-  "terminal.integrated.fontSize": 15,
+  "editor.fontSize": 16,
+  "terminal.integrated.fontSize": 16,
   "terminal.integrated.lineHeight": 1,
 
   "editor.fontFamily": "Menlo, Monaco, 'Courier New', monospace",
   "terminal.integrated.fontFamily": "Menlo, Monaco, 'Courier New', monospace",
 
-  "editor.lineHeight": 20,
+  "editor.lineHeight": 17,
 
     /* Editor cleanliness */
   "editor.minimap.enabled": false,
@@ -81,4 +81,6 @@
   "workbench.editor.enablePreview": false,
   "workbench.editor.enablePreviewFromQuickOpen": false,
   "workbench.editor.tabSizing": "shrink",
+  "notebook.output.fontSize": 14,
+  "notebook.cellEditor.fontSize": 13
 }
