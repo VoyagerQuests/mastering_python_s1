@@ -68,5 +68,18 @@
 // Cursor
 "editor.cursorBlinking": "solid",
 
+// Hidden Folders
+  "files.exclude": {
+    "**/.git": true,
+    "**/.venv": false,
+    "**/__pycache__": true,
+    "**/node_modules": true,
+    "**/.pytest_cache": true,
+    "**/.vscode": true,
+  },
+    
+// Jupiter Notebook
+"jupyter.askForKernelRestart": false,
+
 
 }

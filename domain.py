@@ -16,7 +16,7 @@ AttributeName = Literal[
     "Presence",
 ]
 
-AttributeValue = Annotated[int, Field(ge=0, le=120)]
+AttributeValue = Annotated[int, Field(ge=0, le=100)]
 
 
 class Attributes(BaseModel):
