@@ -1,9 +1,5 @@
-from typing import Literal, Annotated
-
 from fastapi import FastAPI
-from pydantic import BaseModel, Field, ConfigDict
-
-from domain import Character, update_attribute
+from domain import Character
 
 
 # -----------------------------
