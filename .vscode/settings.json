@@ -1,7 +1,7 @@
 {
-  "editor.fontSize": 16,
-  "terminal.integrated.fontSize": 16,
-  "terminal.integrated.lineHeight": 1,
+  "editor.fontSize": 15,
+  "terminal.integrated.fontSize": 15,
+  "terminal.integrated.lineHeight": 1.04,
 
   "editor.fontFamily": "Menlo, Monaco, 'Courier New', monospace",
   "terminal.integrated.fontFamily": "Menlo, Monaco, 'Courier New', monospace",
