@@ -8,15 +8,15 @@ format:
     margin: 0.1
     css: styles.css
     transition: fade
-    transition-speed: slow
+    transition-speed: fast
     execute:
       echo: true
-# theme: dark
+      ansi: false
+      error: true
+theme: dark
 ---
-<!-- ## {vertical-align="top"} -->
-<!-- ::: {.r-stretch} -->
 
-```{.python code-line-numbers="6,9,12-14|15-20"}
+```{.python code-line-numbers="6-8|10-15"}
 import json
 from typing import Any, Dict, List, Optional
 
@@ -41,23 +41,32 @@ def load_characters() -> List[Dict[str, Any]]:
         raise HTTPException(status_code=500, detail="Failed to decode character data")
     if not isinstance(data, list):
         raise HTTPException(status_code=500, detail="Character data is not a list")
-    return data
+    return data # <1>
 ```
+1. This is an example of how you make an annotation comment.
 
 
-## {auto-animate="true"}
 
-```{.python}
+## {auto-animate=true}
+
+```{python}
+#| code-line-numbers: "6|2"
 def say_hi(name):
+    """
+    Input: name: str (no other type supported)
+    Output: str
+    """
     return f"Hey {name.strip().title()}!"
+print(1 + "a")
 ```
 
 ## {auto-animate=true}
 
-```{.python}
+```{python}
+#| code-line-numbers: "6|2"
 def say_hi(name):
     """
-    Input: name: str (no other type supported)
+    Input: name: str (no other type supported) X3
     Output: str
     """
     return f"Hey {name.strip().title()}!"

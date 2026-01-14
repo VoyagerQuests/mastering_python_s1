@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en"><head>
-<script src="0 presentation_files/libs/clipboard/clipboard.min.js"></script>
-<script src="0 presentation_files/libs/quarto-html/tabby.min.js"></script>
-<script src="0 presentation_files/libs/quarto-html/popper.min.js"></script>
-<script src="0 presentation_files/libs/quarto-html/tippy.umd.min.js"></script>
-<link href="0 presentation_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="0 presentation_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="0 presentation_files/libs/quarto-html/quarto-syntax-highlighting-dark-82d683e9f830cba069e3fb8cbfbea53b.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+<script src="presentation_files/libs/clipboard/clipboard.min.js"></script>
+<script src="presentation_files/libs/quarto-html/tabby.min.js"></script>
+<script src="presentation_files/libs/quarto-html/popper.min.js"></script>
+<script src="presentation_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="presentation_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="presentation_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="presentation_files/libs/quarto-html/quarto-syntax-highlighting-dark-82d683e9f830cba069e3fb8cbfbea53b.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.9.16">
 
   <meta name="author" content="John Doe">
@@ -14,8 +14,8 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
-  <link rel="stylesheet" href="0 presentation_files/libs/revealjs/dist/reset.css">
-  <link rel="stylesheet" href="0 presentation_files/libs/revealjs/dist/reveal.css">
+  <link rel="stylesheet" href="presentation_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="presentation_files/libs/revealjs/dist/reveal.css">
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -95,12 +95,12 @@
     code span.vs { color: #abe338; } /* VerbatimString */
     code span.wa { color: #dcc6e0; } /* Warning */
   </style>
-  <link rel="stylesheet" href="0 presentation_files/libs/revealjs/dist/theme/quarto-4df01d85d5cf19cc6202400f4f043f84.css">
+  <link rel="stylesheet" href="presentation_files/libs/revealjs/dist/theme/quarto-4df01d85d5cf19cc6202400f4f043f84.css">
   <link rel="stylesheet" href="styles.css">
-  <link href="0 presentation_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
-  <link href="0 presentation_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
-  <link href="0 presentation_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
-  <link href="0 presentation_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <link href="presentation_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="presentation_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="presentation_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="presentation_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
   <style type="text/css">
     .reveal div.sourceCode {
       margin: 0;
@@ -205,78 +205,111 @@ John Doe
 </div>
 
 </section>
-<section class="slide level2">
-
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-code-line-numbers="6-8|10-15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a><span class="im">import</span> json</span>
-<span id="cb1-2"><a href=""></a><span class="im">from</span> typing <span class="im">import</span> Any, Dict, List, Optional</span>
-<span id="cb1-3"><a href=""></a></span>
-<span id="cb1-4"><a href=""></a><span class="im">from</span> fastapi <span class="im">import</span> FastAPI, HTTPException</span>
-<span id="cb1-5"><a href=""></a><span class="im">from</span> pydantic <span class="im">import</span> BaseModel</span>
-<span id="cb1-6"><a href=""></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
-<span id="cb1-7"><a href=""></a></span>
-<span id="cb1-8"><a href=""></a>app <span class="op">=</span> FastAPI(title<span class="op">=</span><span class="st">"Quest 1 - Naive Character API"</span>)</span>
-<span id="cb1-9"><a href=""></a></span>
-<span id="cb1-10"><a href=""></a>ATTRIBUTE_NAMES <span class="op">=</span> [<span class="st">"Might"</span>, <span class="st">"Agility"</span>, <span class="st">"Vitality"</span>, <span class="st">"Insight"</span>, <span class="st">"Arcana"</span>, <span class="st">"Presence"</span>]</span>
-<span id="cb1-11"><a href=""></a>DATA_PATH <span class="op">=</span> Path(<span class="st">"characters.json"</span>)</span>
-<span id="cb1-12"><a href=""></a></span>
-<span id="cb1-13"><a href=""></a><span class="kw">def</span> load_characters() <span class="op">-&gt;</span> List[Dict[<span class="bu">str</span>, Any]]:</span>
-<span id="cb1-14"><a href=""></a>    <span class="cf">if</span> <span class="kw">not</span> DATA_PATH.exists():</span>
-<span id="cb1-15"><a href=""></a>        <span class="cf">return</span> []</span>
-<span id="cb1-16"><a href=""></a>    raw <span class="op">=</span> DATA_PATH.read_text(encoding<span class="op">=</span><span class="st">"utf-8"</span>)</span>
-<span id="cb1-17"><a href=""></a>    <span class="cf">if</span> <span class="kw">not</span> raw:</span>
-<span id="cb1-18"><a href=""></a>        <span class="cf">return</span> []</span>
-<span id="cb1-19"><a href=""></a>    <span class="cf">try</span>:</span>
-<span id="cb1-20"><a href=""></a>        data <span class="op">=</span> json.loads(raw)</span>
-<span id="cb1-21"><a href=""></a>    <span class="cf">except</span> json.JSONDecodeError:</span>
-<span id="cb1-22"><a href=""></a>        <span class="cf">raise</span> HTTPException(status_code<span class="op">=</span><span class="dv">500</span>, detail<span class="op">=</span><span class="st">"Failed to decode character data"</span>)</span>
-<span id="cb1-23"><a href=""></a>    <span class="cf">if</span> <span class="kw">not</span> <span class="bu">isinstance</span>(data, <span class="bu">list</span>):</span>
-<span id="cb1-24"><a href=""></a>        <span class="cf">raise</span> HTTPException(status_code<span class="op">=</span><span class="dv">500</span>, detail<span class="op">=</span><span class="st">"Character data is not a list"</span>)</span>
-<span id="cb1-25"><a href=""></a>    <span class="cf">return</span> data</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
 <section id="section" class="slide level2" data-auto-animate="true">
 <h2 data-id="quarto-animate-title"></h2>
-<div id="e5bf50ae" class="cell" data-execution_count="1">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2" data-code-line-numbers="6|2"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb2-1" class="hljs-ln-code"><a href=""></a><span class="kw">def</span> say_hi(name):</span>
-<span id="cb2-2" class="hljs-ln-code"><a href=""></a>    <span class="co">"""</span></span>
-<span id="cb2-3" class="hljs-ln-code"><a href=""></a><span class="co">    Input: name: str (no other type supported)</span></span>
-<span id="cb2-4" class="hljs-ln-code"><a href=""></a><span class="co">    Output: str</span></span>
-<span id="cb2-5" class="hljs-ln-code"><a href=""></a><span class="co">    """</span></span>
-<span id="cb2-6" class="hljs-ln-code"><a href=""></a>    <span class="cf">return</span> <span class="ss">f"Hey </span><span class="sc">{</span>name<span class="sc">.</span>strip()<span class="sc">.</span>title()<span class="sc">}</span><span class="ss">!"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</section>
-<section id="section-1" class="slide level2" data-auto-animate="true">
-<h2 data-id="quarto-animate-title"></h2>
-<div id="6f63ce36" class="cell" data-execution_count="2">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3" data-code-line-numbers="6|2"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb3-1" class="hljs-ln-code"><a href=""></a><span class="kw">def</span> say_hi(name):</span>
-<span id="cb3-2" class="hljs-ln-code"><a href=""></a>    <span class="co">"""</span></span>
-<span id="cb3-3" class="hljs-ln-code"><a href=""></a><span class="co">    Input: name: str (no other type supported) X3</span></span>
-<span id="cb3-4" class="hljs-ln-code"><a href=""></a><span class="co">    Output: str</span></span>
-<span id="cb3-5" class="hljs-ln-code"><a href=""></a><span class="co">    """</span></span>
-<span id="cb3-6" class="hljs-ln-code"><a href=""></a>    <span class="cf">return</span> <span class="ss">f"Hey </span><span class="sc">{</span>name<span class="sc">.</span>strip()<span class="sc">.</span>title()<span class="sc">}</span><span class="ss">!"</span></span>
-<span id="cb3-7" class="hljs-ln-code"><a href=""></a></span>
-<span id="cb3-8" class="hljs-ln-code"><a href=""></a><span class="bu">print</span>(say_hi(<span class="st">"  arion silvaris "</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="c6895cf2" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb1-1" class="hljs-ln-code"><a href=""></a><span class="kw">def</span> say_hi(name):</span>
+<span id="cb1-2" class="hljs-ln-code"><a href=""></a>    <span class="cf">return</span> <span class="ss">f"Hey </span><span class="sc">{</span>name<span class="sc">.</span>strip()<span class="sc">.</span>title()<span class="sc">}</span><span class="ss">!"</span></span>
+<span id="cb1-3" class="hljs-ln-code"><a href=""></a></span>
+<span id="cb1-4" class="hljs-ln-code"><a href=""></a><span class="bu">print</span>(say_hi(<span class="st">"  arion silvaris "</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Hey Arion Silvaris!</code></pre>
 </div>
 </div>
 </section>
+<section id="section-1" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title"></h2>
+<div id="450b4699" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3" data-code-line-numbers="2-5,8"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb3-1" class="hljs-ln-code"><a href=""></a><span class="kw">def</span> say_hi(name):</span>
+<span id="cb3-2" class="hljs-ln-code"><a href=""></a>    <span class="co">"""</span></span>
+<span id="cb3-3" class="hljs-ln-code"><a href=""></a><span class="co">    Input: name: str (no other type supported)</span></span>
+<span id="cb3-4" class="hljs-ln-code"><a href=""></a><span class="co">    Output: str</span></span>
+<span id="cb3-5" class="hljs-ln-code"><a href=""></a><span class="co">    """</span></span>
+<span id="cb3-6" class="hljs-ln-code"><a href=""></a>    <span class="cf">return</span> <span class="ss">f"Hey </span><span class="sc">{</span>name<span class="sc">.</span>strip()<span class="sc">.</span>title()<span class="sc">}</span><span class="ss">!"</span></span>
+<span id="cb3-7" class="hljs-ln-code"><a href=""></a></span>
+<span id="cb3-8" class="hljs-ln-code"><a href=""></a><span class="bu">print</span>(say_hi(<span class="st">"  zerion supra "</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Hey Zerion Supra!</code></pre>
+</div>
+</div>
+</section>
 <section id="section-2" class="slide level2" data-auto-animate="true">
 <h2 data-id="quarto-animate-title"></h2>
-<p>```python def say_hi(name: str) -&gt; str: return f”Hey {name.strip().title()}!”</p>
-<div class="fragment">
-<p>Fade in</p>
+<div id="c74b20d0" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="annotated-cell-3" data-code-line-numbers="10"><pre class="sourceCode numberSource python code-annotation-code number-lines code-with-copy code-annotated" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="annotated-cell-3-1" class="hljs-ln-code"><a href="#annotated-cell-3-1"></a><span class="kw">def</span> say_hi(name):</span>
+<span id="annotated-cell-3-2" class="hljs-ln-code"><a href="#annotated-cell-3-2"></a>    <span class="co">"""</span></span>
+<span id="annotated-cell-3-3" class="hljs-ln-code"><a href="#annotated-cell-3-3"></a><span class="co">    Input: name: str (no other type supported)</span></span>
+<span id="annotated-cell-3-4" class="hljs-ln-code"><a href="#annotated-cell-3-4"></a><span class="co">    Output: str</span></span>
+<span id="annotated-cell-3-5" class="hljs-ln-code"><a href="#annotated-cell-3-5"></a><span class="co">    """</span></span>
+<span id="annotated-cell-3-6" class="hljs-ln-code"><a href="#annotated-cell-3-6"></a>    <span class="cf">return</span> <span class="ss">f"Hey </span><span class="sc">{</span>name<span class="sc">.</span>strip()<span class="sc">.</span>title()<span class="sc">}</span><span class="ss">!"</span></span>
+<span id="annotated-cell-3-7" class="hljs-ln-code"><a href="#annotated-cell-3-7"></a></span>
+<a class="code-annotation-anchor hljs-ln-code" data-target-cell="annotated-cell-3" data-target-annotation="1" onclick="event.preventDefault();" href="">1</a><span id="annotated-cell-3-8" class="code-annotation-target hljs-ln-code"><a href="#annotated-cell-3-8"></a><span class="bu">print</span>(say_hi(<span class="st">"  arion silvaris "</span>))</span>
+<span id="annotated-cell-3-9" class="hljs-ln-code"><a href="#annotated-cell-3-9"></a></span>
+<span id="annotated-cell-3-10" class="hljs-ln-code"><a href="#annotated-cell-3-10"></a><span class="bu">print</span>(say_hi([<span class="st">"  arion silvaris "</span>]))</span><div class="code-annotation-gutter-bg hljs-ln-code"></div><div class="code-annotation-gutter hljs-ln-code"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-3" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-3" data-code-lines="8" data-code-annotation="1">Argument of type “list[str]” cannot be assigned to parameter “name” of type “str” in function “say_hi”</span>
+</dd>
+</dl>
 </div>
-<div class="fragment fade-out">
-<p>Fade out</p>
+<div class="cell-output cell-output-stdout">
+<pre><code>Hey Arion Silvaris!</code></pre>
 </div>
-<div class="fragment highlight-red">
-<p>Highlight red</p>
+<div class="cell-output cell-output-error">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">AttributeError</span>                            Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[3]</span><span class="ansi-green-fg">, line 10</span>
+<span class="ansi-green-fg">      6</span>     <span style="font-weight:bold;color:rgb(0,135,0)">return</span> <span class="ansi-yellow-fg">f</span><span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">Hey </span><span style="font-weight:bold;color:rgb(175,95,135)">{</span>name.strip().title()<span style="font-weight:bold;color:rgb(175,95,135)">}</span><span class="ansi-yellow-fg">!</span><span class="ansi-yellow-fg">"</span>
+<span class="ansi-green-fg">      8</span> <span style="color:rgb(0,135,0)">print</span>(say_hi(<span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">  arion silvaris </span><span class="ansi-yellow-fg">"</span>)) <span style="font-style:italic;color:rgb(95,135,135)"># &lt;1&gt;</span>
+<span class="ansi-green-fg">---&gt; </span><span class="ansi-green-fg">10</span> <span style="color:rgb(0,135,0)">print</span>(<span class="ansi-yellow-bg">say_hi</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">[</span><span class="ansi-yellow-fg ansi-yellow-bg">"</span><span class="ansi-yellow-fg ansi-yellow-bg">  arion silvaris </span><span class="ansi-yellow-fg ansi-yellow-bg">"</span><span class="ansi-yellow-bg">]</span><span class="ansi-yellow-bg">)</span>)
+
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[3]</span><span class="ansi-green-fg">, line 6</span>, in <span class="ansi-cyan-fg">say_hi</span><span class="ansi-blue-fg">(name)</span>
+<span class="ansi-green-fg">      1</span> <span style="font-weight:bold;color:rgb(0,135,0)">def</span><span style="color:rgb(188,188,188)"> </span><span class="ansi-blue-fg">say_hi</span>(name):
+<span class="ansi-green-fg">      2</span> <span style="color:rgb(188,188,188)">    </span><span style="font-style:italic" class="ansi-yellow-fg">"""</span>
+<span class="ansi-green-fg">      3</span> <span style="font-style:italic" class="ansi-yellow-fg">    Input: name: str (no other type supported)</span>
+<span class="ansi-green-fg">      4</span> <span style="font-style:italic" class="ansi-yellow-fg">    Output: str</span>
+<span class="ansi-green-fg">      5</span> <span style="font-style:italic" class="ansi-yellow-fg">    """</span>
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">6</span>     <span style="font-weight:bold;color:rgb(0,135,0)">return</span> <span class="ansi-yellow-fg">f</span><span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">Hey </span><span style="font-weight:bold;color:rgb(175,95,135)">{</span><span class="ansi-yellow-bg">name</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">strip</span>().title()<span style="font-weight:bold;color:rgb(175,95,135)">}</span><span class="ansi-yellow-fg">!</span><span class="ansi-yellow-fg">"</span>
+
+<span class="ansi-red-fg">AttributeError</span>: 'list' object has no attribute 'strip'</pre>
 </div>
-<div class="fragment fade-in-then-out">
-<p>Fade in, then out</p>
 </div>
-<div class="fragment fade-up">
-<p>Slide up while fading in</p>
+</div>
+</section>
+<section id="section-3" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title"></h2>
+<div id="c9dae1ef" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="annotated-cell-4"><pre class="sourceCode numberSource python code-annotation-code number-lines code-with-copy code-annotated" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="annotated-cell-4-1" class="hljs-ln-code"><a href="#annotated-cell-4-1"></a><span class="kw">def</span> say_hi(name: <span class="bu">str</span>) <span class="op">-&gt;</span> <span class="bu">str</span>:</span>
+<a class="code-annotation-anchor hljs-ln-code" data-target-cell="annotated-cell-4" data-target-annotation="1" onclick="event.preventDefault();" href="">1</a><span id="annotated-cell-4-2" class="code-annotation-target hljs-ln-code"><a href="#annotated-cell-4-2"></a>    <span class="cf">return</span> <span class="ss">f"Hey </span><span class="sc">{</span>name<span class="sc">.</span>strip()<span class="sc">.</span>title()<span class="sc">}</span><span class="ss">!"</span></span>
+<span id="annotated-cell-4-3" class="hljs-ln-code"><a href="#annotated-cell-4-3"></a></span>
+<span id="annotated-cell-4-4" class="hljs-ln-code"><a href="#annotated-cell-4-4"></a><span class="bu">print</span>(say_hi([<span class="st">"  arion silvaris "</span>])) </span><div class="code-annotation-gutter-bg hljs-ln-code"></div><div class="code-annotation-gutter hljs-ln-code"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-4" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-4" data-code-lines="2" data-code-annotation="1">Argument of type “list[str]” cannot be assigned to parameter “name” of type “str” in function “say_hi” “list[str]” is not assignable to “str”PylancereportArgumentType</span>
+</dd>
+</dl>
+</div>
+<div class="cell-output cell-output-error">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">AttributeError</span>                            Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[4]</span><span class="ansi-green-fg">, line 4</span>
+<span class="ansi-green-fg">      1</span> <span style="font-weight:bold;color:rgb(0,135,0)">def</span><span style="color:rgb(188,188,188)"> </span><span class="ansi-blue-fg">say_hi</span>(name: <span style="color:rgb(0,135,0)">str</span>) -&gt; <span style="color:rgb(0,135,0)">str</span>:
+<span class="ansi-green-fg">      2</span>     <span style="font-weight:bold;color:rgb(0,135,0)">return</span> <span class="ansi-yellow-fg">f</span><span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">Hey </span><span style="font-weight:bold;color:rgb(175,95,135)">{</span>name.strip().title()<span style="font-weight:bold;color:rgb(175,95,135)">}</span><span class="ansi-yellow-fg">!</span><span class="ansi-yellow-fg">"</span> <span style="font-style:italic;color:rgb(95,135,135)"># &lt;1&gt;</span>
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">4</span> <span style="color:rgb(0,135,0)">print</span>(<span class="ansi-yellow-bg">say_hi</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">[</span><span class="ansi-yellow-fg ansi-yellow-bg">"</span><span class="ansi-yellow-fg ansi-yellow-bg">  arion silvaris </span><span class="ansi-yellow-fg ansi-yellow-bg">"</span><span class="ansi-yellow-bg">]</span><span class="ansi-yellow-bg">)</span>) 
+
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[4]</span><span class="ansi-green-fg">, line 2</span>, in <span class="ansi-cyan-fg">say_hi</span><span class="ansi-blue-fg">(name)</span>
+<span class="ansi-green-fg">      1</span> <span style="font-weight:bold;color:rgb(0,135,0)">def</span><span style="color:rgb(188,188,188)"> </span><span class="ansi-blue-fg">say_hi</span>(name: <span style="color:rgb(0,135,0)">str</span>) -&gt; <span style="color:rgb(0,135,0)">str</span>:
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">2</span>     <span style="font-weight:bold;color:rgb(0,135,0)">return</span> <span class="ansi-yellow-fg">f</span><span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">Hey </span><span style="font-weight:bold;color:rgb(175,95,135)">{</span><span class="ansi-yellow-bg">name</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">strip</span>().title()<span style="font-weight:bold;color:rgb(175,95,135)">}</span><span class="ansi-yellow-fg">!</span><span class="ansi-yellow-fg">"</span>
+
+<span class="ansi-red-fg">AttributeError</span>: 'list' object has no attribute 'strip'</pre>
+</div>
+</div>
 </div>
 
 </section>
@@ -288,19 +321,19 @@ John Doe
 </div></div>
 
   <script>window.backupDefine = window.define; window.define = undefined;</script>
-  <script src="0 presentation_files/libs/revealjs/dist/reveal.js"></script>
+  <script src="presentation_files/libs/revealjs/dist/reveal.js"></script>
   <!-- reveal.js plugins -->
-  <script src="0 presentation_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
-  <script src="0 presentation_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
-  <script src="0 presentation_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
-  <script src="0 presentation_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
-  <script src="0 presentation_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  <script src="presentation_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="presentation_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="presentation_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="presentation_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="presentation_files/libs/revealjs/plugin/quarto-support/support.js"></script>
   
 
-  <script src="0 presentation_files/libs/revealjs/plugin/notes/notes.js"></script>
-  <script src="0 presentation_files/libs/revealjs/plugin/search/search.js"></script>
-  <script src="0 presentation_files/libs/revealjs/plugin/zoom/zoom.js"></script>
-  <script src="0 presentation_files/libs/revealjs/plugin/math/math.js"></script>
+  <script src="presentation_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="presentation_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="presentation_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="presentation_files/libs/revealjs/plugin/math/math.js"></script>
   <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
 
   <script>
@@ -444,7 +477,7 @@ John Doe
         transition: 'fade',
 
         // Transition speed (default/fast/slow)
-        transitionSpeed: 'slow',
+        transitionSpeed: 'fast',
 
         // Transition style for full page slide backgrounds
         // (none/fade/slide/convex/concave/zoom)

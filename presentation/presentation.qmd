@@ -1,0 +1,69 @@
+---
+title: "Habits"
+author: "John Doe"
+format:
+  revealjs:
+    width: 1600
+    height: 1200
+    margin: 0.1
+    css: styles.css
+    transition: fade
+    transition-speed: fast
+    execute:
+      echo: true
+      ansi: false
+      error: true
+theme: dark
+---
+## {auto-animate=true}
+```{python}
+def say_hi(name):
+    return f"Hey {name.strip().title()}!"
+
+print(say_hi("  arion silvaris "))
+```
+
+## {auto-animate=true}
+
+```{python}
+#| code-line-numbers: "2-5,8"
+def say_hi(name):
+    """
+    Input: name: str (no other type supported)
+    Output: str
+    """
+    return f"Hey {name.strip().title()}!"
+
+print(say_hi("  zerion supra "))
+```
+
+## {auto-animate=true}
+
+```{python}
+#| code-line-numbers: "10"
+def say_hi(name):
+    """
+    Input: name: str (no other type supported)
+    Output: str
+    """
+    return f"Hey {name.strip().title()}!"
+
+print(say_hi("  arion silvaris ")) # <1>
+
+print(say_hi(["  arion silvaris "]))
+```
+1. Argument of type "list[str]" cannot be assigned to parameter "name" of type "str" in function "say_hi"
+2. Argument of type "list[str]" cannot be assigned to parameter "name" of type "str" in function "say_hi"
+  "list[str]" is not assignable to "str"PylancereportArgumentType
+
+## {auto-animate=true}
+
+```{python}
+def say_hi(name: str) -> str:
+    return f"Hey {name.strip().title()}!" # <1>
+
+print(say_hi(["  arion silvaris "])) 
+
+```
+1. Argument of type "list[str]" cannot be assigned to parameter "name" of type "str" in function "say_hi"
+  "list[str]" is not assignable to "str"PylancereportArgumentType
