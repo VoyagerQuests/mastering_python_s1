@@ -1,0 +1,92 @@
+---
+title: "Habits"
+author: "John Doe"
+format:
+  revealjs:
+    width: 1600
+    height: 1200
+    margin: 0.1
+    css: styles.css
+    transition: fade
+    transition-speed: slow
+    execute:
+      echo: true
+# theme: dark
+---
+<!-- ## {vertical-align="top"} -->
+<!-- ::: {.r-stretch} -->
+
+```{.python code-line-numbers="6,9,12-14|15-20"}
+import json
+from typing import Any, Dict, List, Optional
+
+from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel
+from pathlib import Path
+
+app = FastAPI(title="Quest 1 - Naive Character API")
+
+ATTRIBUTE_NAMES = ["Might", "Agility", "Vitality", "Insight", "Arcana", "Presence"]
+DATA_PATH = Path("characters.json")
+
+def load_characters() -> List[Dict[str, Any]]:
+    if not DATA_PATH.exists():
+        return []
+    raw = DATA_PATH.read_text(encoding="utf-8")
+    if not raw:
+        return []
+    try:
+        data = json.loads(raw)
+    except json.JSONDecodeError:
+        raise HTTPException(status_code=500, detail="Failed to decode character data")
+    if not isinstance(data, list):
+        raise HTTPException(status_code=500, detail="Character data is not a list")
+    return data
+```
+
+
+## {auto-animate="true"}
+
+```{.python}
+def say_hi(name):
+    return f"Hey {name.strip().title()}!"
+```
+
+## {auto-animate=true}
+
+```{.python}
+def say_hi(name):
+    """
+    Input: name: str (no other type supported)
+    Output: str
+    """
+    return f"Hey {name.strip().title()}!"
+
+print(say_hi("  arion silvaris "))
+```
+
+## {auto-animate="true"}
+```python
+def say_hi(name: str) -> str:
+    return f"Hey {name.strip().title()}!"
+
+
+::: {.fragment}
+Fade in
+:::
+
+::: {.fragment .fade-out}
+Fade out
+:::
+
+::: {.fragment .highlight-red}
+Highlight red
+:::
+
+::: {.fragment .fade-in-then-out}
+Fade in, then out
+:::
+
+::: {.fragment .fade-up}
+Slide up while fading in
+:::

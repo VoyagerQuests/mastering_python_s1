@@ -1,0 +1,10 @@
+
+.reveal pre.sourceCode code {
+  font-size: 1.2em !important; 
+  max-height: none !important;
+}
+
+.reveal .sourceCode {
+    padding: 5px !important;
+    scrollbar-width: none;
+}
