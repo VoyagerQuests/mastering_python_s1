@@ -9,8 +9,8 @@
 <link href="presentation_files/libs/quarto-html/quarto-syntax-highlighting-dark-82d683e9f830cba069e3fb8cbfbea53b.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.9.16">
 
-  <meta name="author" content="John Doe">
-  <title>Habits</title>
+  <meta name="author" content="Hanz van Aardt">
+  <title>Mastering Python Type Hints / Annotations</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -194,12 +194,12 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Habits</h1>
+  <h1 class="title">Mastering Python Type Hints / Annotations</h1>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
 <div class="quarto-title-author-name">
-John Doe 
+Hanz van Aardt 
 </div>
 </div>
 </div>
@@ -207,66 +207,82 @@ John Doe
 </section>
 <section id="section" class="slide level2" data-auto-animate="true">
 <h2 data-id="quarto-animate-title"></h2>
-<div id="c6895cf2" class="cell" data-execution_count="1">
+<h2 data-id="title">
+No type hints / annotations
+</h2>
+<div id="edcb9c02" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb1-1" class="hljs-ln-code"><a href=""></a><span class="kw">def</span> say_hi(name):</span>
-<span id="cb1-2" class="hljs-ln-code"><a href=""></a>    <span class="cf">return</span> <span class="ss">f"Hey </span><span class="sc">{</span>name<span class="sc">.</span>strip()<span class="sc">.</span>title()<span class="sc">}</span><span class="ss">!"</span></span>
-<span id="cb1-3" class="hljs-ln-code"><a href=""></a></span>
-<span id="cb1-4" class="hljs-ln-code"><a href=""></a><span class="bu">print</span>(say_hi(<span class="st">"  arion silvaris "</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Hey Arion Silvaris!</code></pre>
-</div>
+<span id="cb1-2" class="hljs-ln-code"><a href=""></a>    <span class="cf">return</span> <span class="ss">f"Hey </span><span class="sc">{</span>name<span class="sc">.</span>strip()<span class="sc">.</span>title()<span class="sc">}</span><span class="ss">!"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="section-1" class="slide level2" data-auto-animate="true">
 <h2 data-id="quarto-animate-title"></h2>
-<div id="450b4699" class="cell" data-execution_count="2">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3" data-code-line-numbers="2-5,8"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb3-1" class="hljs-ln-code"><a href=""></a><span class="kw">def</span> say_hi(name):</span>
+<h2 data-id="title">
+Comments get stale quickly
+</h2>
+<div id="fcd81b53" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2" data-code-line-numbers="|2-5,8"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb2-1" class="hljs-ln-code"><a href=""></a><span class="kw">def</span> say_hi(name):</span>
+<span id="cb2-2" class="hljs-ln-code"><a href=""></a>    <span class="co">"""</span></span>
+<span id="cb2-3" class="hljs-ln-code"><a href=""></a><span class="co">    Input: name: str (no other type supported)</span></span>
+<span id="cb2-4" class="hljs-ln-code"><a href=""></a><span class="co">    Output: str</span></span>
+<span id="cb2-5" class="hljs-ln-code"><a href=""></a><span class="co">    """</span></span>
+<span id="cb2-6" class="hljs-ln-code"><a href=""></a>    <span class="cf">return</span> <span class="ss">f"Hey </span><span class="sc">{</span>name<span class="sc">.</span>strip()<span class="sc">.</span>title()<span class="sc">}</span><span class="ss">!"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="section-2" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title"></h2>
+<h2 data-id="title">
+Correct usage…
+</h2>
+<div id="29f84372" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb3-1" class="hljs-ln-code"><a href=""></a><span class="kw">def</span> say_hi(name):</span>
 <span id="cb3-2" class="hljs-ln-code"><a href=""></a>    <span class="co">"""</span></span>
 <span id="cb3-3" class="hljs-ln-code"><a href=""></a><span class="co">    Input: name: str (no other type supported)</span></span>
 <span id="cb3-4" class="hljs-ln-code"><a href=""></a><span class="co">    Output: str</span></span>
 <span id="cb3-5" class="hljs-ln-code"><a href=""></a><span class="co">    """</span></span>
 <span id="cb3-6" class="hljs-ln-code"><a href=""></a>    <span class="cf">return</span> <span class="ss">f"Hey </span><span class="sc">{</span>name<span class="sc">.</span>strip()<span class="sc">.</span>title()<span class="sc">}</span><span class="ss">!"</span></span>
 <span id="cb3-7" class="hljs-ln-code"><a href=""></a></span>
-<span id="cb3-8" class="hljs-ln-code"><a href=""></a><span class="bu">print</span>(say_hi(<span class="st">"  zerion supra "</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb3-8" class="hljs-ln-code"><a href=""></a><span class="bu">print</span>(say_hi(<span class="st">"  zerbial supra "</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Hey Zerion Supra!</code></pre>
+<pre><code>Hey Zerbial Supra!</code></pre>
 </div>
 </div>
 </section>
-<section id="section-2" class="slide level2" data-auto-animate="true">
+<section id="section-3" class="slide level2" data-auto-animate="true">
 <h2 data-id="quarto-animate-title"></h2>
-<div id="c74b20d0" class="cell" data-execution_count="3">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="annotated-cell-3" data-code-line-numbers="10"><pre class="sourceCode numberSource python code-annotation-code number-lines code-with-copy code-annotated" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="annotated-cell-3-1" class="hljs-ln-code"><a href="#annotated-cell-3-1"></a><span class="kw">def</span> say_hi(name):</span>
-<span id="annotated-cell-3-2" class="hljs-ln-code"><a href="#annotated-cell-3-2"></a>    <span class="co">"""</span></span>
-<span id="annotated-cell-3-3" class="hljs-ln-code"><a href="#annotated-cell-3-3"></a><span class="co">    Input: name: str (no other type supported)</span></span>
-<span id="annotated-cell-3-4" class="hljs-ln-code"><a href="#annotated-cell-3-4"></a><span class="co">    Output: str</span></span>
-<span id="annotated-cell-3-5" class="hljs-ln-code"><a href="#annotated-cell-3-5"></a><span class="co">    """</span></span>
-<span id="annotated-cell-3-6" class="hljs-ln-code"><a href="#annotated-cell-3-6"></a>    <span class="cf">return</span> <span class="ss">f"Hey </span><span class="sc">{</span>name<span class="sc">.</span>strip()<span class="sc">.</span>title()<span class="sc">}</span><span class="ss">!"</span></span>
-<span id="annotated-cell-3-7" class="hljs-ln-code"><a href="#annotated-cell-3-7"></a></span>
-<a class="code-annotation-anchor hljs-ln-code" data-target-cell="annotated-cell-3" data-target-annotation="1" onclick="event.preventDefault();" href="">1</a><span id="annotated-cell-3-8" class="code-annotation-target hljs-ln-code"><a href="#annotated-cell-3-8"></a><span class="bu">print</span>(say_hi(<span class="st">"  arion silvaris "</span>))</span>
-<span id="annotated-cell-3-9" class="hljs-ln-code"><a href="#annotated-cell-3-9"></a></span>
-<span id="annotated-cell-3-10" class="hljs-ln-code"><a href="#annotated-cell-3-10"></a><span class="bu">print</span>(say_hi([<span class="st">"  arion silvaris "</span>]))</span><div class="code-annotation-gutter-bg hljs-ln-code"></div><div class="code-annotation-gutter hljs-ln-code"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<h2 data-id="title">
+Incorrect usage…no type checker warning
+</h2>
+<div id="3da4dd95" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="annotated-cell-4" data-code-line-numbers="10"><pre class="sourceCode numberSource python code-annotation-code number-lines code-with-copy code-annotated" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="annotated-cell-4-1" class="hljs-ln-code"><a href="#annotated-cell-4-1"></a><span class="kw">def</span> say_hi(name):</span>
+<span id="annotated-cell-4-2" class="hljs-ln-code"><a href="#annotated-cell-4-2"></a>    <span class="co">"""</span></span>
+<span id="annotated-cell-4-3" class="hljs-ln-code"><a href="#annotated-cell-4-3"></a><span class="co">    Input: name: str (no other type supported)</span></span>
+<span id="annotated-cell-4-4" class="hljs-ln-code"><a href="#annotated-cell-4-4"></a><span class="co">    Output: str</span></span>
+<span id="annotated-cell-4-5" class="hljs-ln-code"><a href="#annotated-cell-4-5"></a><span class="co">    """</span></span>
+<span id="annotated-cell-4-6" class="hljs-ln-code"><a href="#annotated-cell-4-6"></a>    <span class="cf">return</span> <span class="ss">f"Hey </span><span class="sc">{</span>name<span class="sc">.</span>strip()<span class="sc">.</span>title()<span class="sc">}</span><span class="ss">!"</span></span>
+<span id="annotated-cell-4-7" class="hljs-ln-code"><a href="#annotated-cell-4-7"></a></span>
+<a class="code-annotation-anchor hljs-ln-code" data-target-cell="annotated-cell-4" data-target-annotation="1" onclick="event.preventDefault();" href="">1</a><span id="annotated-cell-4-8" class="code-annotation-target hljs-ln-code"><a href="#annotated-cell-4-8"></a><span class="bu">print</span>(say_hi([<span class="st">"  arion silvaris "</span>]))</span><div class="code-annotation-gutter-bg hljs-ln-code"></div><div class="code-annotation-gutter hljs-ln-code"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-3" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-4" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-3" data-code-lines="8" data-code-annotation="1">Argument of type “list[str]” cannot be assigned to parameter “name” of type “str” in function “say_hi”</span>
+<span data-code-cell="annotated-cell-4" data-code-lines="8" data-code-annotation="1">No type hint is shown!</span>
 </dd>
 </dl>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Hey Arion Silvaris!</code></pre>
 </div>
 <div class="cell-output cell-output-error">
 <div class="ansi-escaped-output">
 <pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
 <span class="ansi-red-fg">AttributeError</span>                            Traceback (most recent call last)
-<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[3]</span><span class="ansi-green-fg">, line 10</span>
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[4]</span><span class="ansi-green-fg">, line 8</span>
+<span class="ansi-green-fg">      2</span> <span style="color:rgb(188,188,188)">    </span><span style="font-style:italic" class="ansi-yellow-fg">"""</span>
+<span class="ansi-green-fg">      3</span> <span style="font-style:italic" class="ansi-yellow-fg">    Input: name: str (no other type supported)</span>
+<span class="ansi-green-fg">      4</span> <span style="font-style:italic" class="ansi-yellow-fg">    Output: str</span>
+<span class="ansi-green-fg">      5</span> <span style="font-style:italic" class="ansi-yellow-fg">    """</span>
 <span class="ansi-green-fg">      6</span>     <span style="font-weight:bold;color:rgb(0,135,0)">return</span> <span class="ansi-yellow-fg">f</span><span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">Hey </span><span style="font-weight:bold;color:rgb(175,95,135)">{</span>name.strip().title()<span style="font-weight:bold;color:rgb(175,95,135)">}</span><span class="ansi-yellow-fg">!</span><span class="ansi-yellow-fg">"</span>
-<span class="ansi-green-fg">      8</span> <span style="color:rgb(0,135,0)">print</span>(say_hi(<span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">  arion silvaris </span><span class="ansi-yellow-fg">"</span>)) <span style="font-style:italic;color:rgb(95,135,135)"># &lt;1&gt;</span>
-<span class="ansi-green-fg">---&gt; </span><span class="ansi-green-fg">10</span> <span style="color:rgb(0,135,0)">print</span>(<span class="ansi-yellow-bg">say_hi</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">[</span><span class="ansi-yellow-fg ansi-yellow-bg">"</span><span class="ansi-yellow-fg ansi-yellow-bg">  arion silvaris </span><span class="ansi-yellow-fg ansi-yellow-bg">"</span><span class="ansi-yellow-bg">]</span><span class="ansi-yellow-bg">)</span>)
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">8</span> <span style="color:rgb(0,135,0)">print</span>(<span class="ansi-yellow-bg">say_hi</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">[</span><span class="ansi-yellow-fg ansi-yellow-bg">"</span><span class="ansi-yellow-fg ansi-yellow-bg">  arion silvaris </span><span class="ansi-yellow-fg ansi-yellow-bg">"</span><span class="ansi-yellow-bg">]</span><span class="ansi-yellow-bg">)</span>) <span style="font-style:italic;color:rgb(95,135,135)"># &lt;1&gt;</span>
 
-<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[3]</span><span class="ansi-green-fg">, line 6</span>, in <span class="ansi-cyan-fg">say_hi</span><span class="ansi-blue-fg">(name)</span>
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[4]</span><span class="ansi-green-fg">, line 6</span>, in <span class="ansi-cyan-fg">say_hi</span><span class="ansi-blue-fg">(name)</span>
 <span class="ansi-green-fg">      1</span> <span style="font-weight:bold;color:rgb(0,135,0)">def</span><span style="color:rgb(188,188,188)"> </span><span class="ansi-blue-fg">say_hi</span>(name):
 <span class="ansi-green-fg">      2</span> <span style="color:rgb(188,188,188)">    </span><span style="font-style:italic" class="ansi-yellow-fg">"""</span>
 <span class="ansi-green-fg">      3</span> <span style="font-style:italic" class="ansi-yellow-fg">    Input: name: str (no other type supported)</span>
@@ -279,18 +295,47 @@ John Doe
 </div>
 </div>
 </section>
-<section id="section-3" class="slide level2" data-auto-animate="true">
+<section id="section-4" class="slide level2" data-auto-animate="true">
 <h2 data-id="quarto-animate-title"></h2>
-<div id="c9dae1ef" class="cell" data-execution_count="4">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="annotated-cell-4"><pre class="sourceCode numberSource python code-annotation-code number-lines code-with-copy code-annotated" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="annotated-cell-4-1" class="hljs-ln-code"><a href="#annotated-cell-4-1"></a><span class="kw">def</span> say_hi(name: <span class="bu">str</span>) <span class="op">-&gt;</span> <span class="bu">str</span>:</span>
-<a class="code-annotation-anchor hljs-ln-code" data-target-cell="annotated-cell-4" data-target-annotation="1" onclick="event.preventDefault();" href="">1</a><span id="annotated-cell-4-2" class="code-annotation-target hljs-ln-code"><a href="#annotated-cell-4-2"></a>    <span class="cf">return</span> <span class="ss">f"Hey </span><span class="sc">{</span>name<span class="sc">.</span>strip()<span class="sc">.</span>title()<span class="sc">}</span><span class="ss">!"</span></span>
-<span id="annotated-cell-4-3" class="hljs-ln-code"><a href="#annotated-cell-4-3"></a></span>
-<span id="annotated-cell-4-4" class="hljs-ln-code"><a href="#annotated-cell-4-4"></a><span class="bu">print</span>(say_hi([<span class="st">"  arion silvaris "</span>])) </span><div class="code-annotation-gutter-bg hljs-ln-code"></div><div class="code-annotation-gutter hljs-ln-code"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<h2 data-id="title">
+With type hints / annotations
+</h2>
+<div id="bf2a9ca7" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5" data-code-line-numbers="|1"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb5-1" class="hljs-ln-code"><a href=""></a><span class="kw">def</span> say_hi(name: <span class="bu">str</span>) <span class="op">-&gt;</span> <span class="bu">str</span>:</span>
+<span id="cb5-2" class="hljs-ln-code"><a href=""></a>    <span class="cf">return</span> <span class="ss">f"Hey </span><span class="sc">{</span>name<span class="sc">.</span>strip()<span class="sc">.</span>title()<span class="sc">}</span><span class="ss">!"</span> </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="section-5" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title"></h2>
+<h2 data-id="title">
+Type checker warnings will now guide you
+</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="annotated-cell-6"><pre class="sourceCode numberSource python code-annotation-code number-lines code-with-copy code-annotated" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="annotated-cell-6-1" class="hljs-ln-code"><a href="#annotated-cell-6-1"></a><span class="kw">def</span> say_hi(name: <span class="bu">str</span>) <span class="op">-&gt;</span> <span class="bu">str</span>:</span>
+<span id="annotated-cell-6-2" class="hljs-ln-code"><a href="#annotated-cell-6-2"></a>    <span class="cf">return</span> <span class="ss">f"Hey </span><span class="sc">{</span>name<span class="sc">.</span>strip()<span class="sc">.</span>title()<span class="sc">}</span><span class="ss">!"</span> </span>
+<span id="annotated-cell-6-3" class="hljs-ln-code"><a href="#annotated-cell-6-3"></a></span>
+<a class="code-annotation-anchor hljs-ln-code" data-target-cell="annotated-cell-6" data-target-annotation="1" onclick="event.preventDefault();" href="">1</a><span id="annotated-cell-6-4" class="code-annotation-target hljs-ln-code"><a href="#annotated-cell-6-4"></a><span class="bu">print</span>(say_hi([<span class="st">"  boromir denethorian "</span>]))</span><div class="code-annotation-gutter-bg hljs-ln-code"></div><div class="code-annotation-gutter hljs-ln-code"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-6" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-6" data-code-lines="4" data-code-annotation="1">Argument of type “list[str]” cannot be assigned to parameter “name” of type “str” in function “say_hi”</span>
+</dd>
+</dl>
+</section>
+<section id="section-6" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title"></h2>
+<h2 data-id="title">
+Python execution remain unchanged
+</h2>
+<div id="a74fb7fc" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="annotated-cell-7"><pre class="sourceCode numberSource python code-annotation-code number-lines code-with-copy code-annotated" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="annotated-cell-7-1" class="hljs-ln-code"><a href="#annotated-cell-7-1"></a><span class="kw">def</span> say_hi(name: <span class="bu">str</span>) <span class="op">-&gt;</span> <span class="bu">str</span>:</span>
+<span id="annotated-cell-7-2" class="hljs-ln-code"><a href="#annotated-cell-7-2"></a>    <span class="cf">return</span> <span class="ss">f"Hey </span><span class="sc">{</span>name<span class="sc">.</span>strip()<span class="sc">.</span>title()<span class="sc">}</span><span class="ss">!"</span> </span>
+<span id="annotated-cell-7-3" class="hljs-ln-code"><a href="#annotated-cell-7-3"></a></span>
+<a class="code-annotation-anchor hljs-ln-code" data-target-cell="annotated-cell-7" data-target-annotation="1" onclick="event.preventDefault();" href="">1</a><span id="annotated-cell-7-4" class="code-annotation-target hljs-ln-code"><a href="#annotated-cell-7-4"></a><span class="bu">print</span>(say_hi([<span class="st">"  boromir denethorian "</span>]))</span><div class="code-annotation-gutter-bg hljs-ln-code"></div><div class="code-annotation-gutter hljs-ln-code"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-4" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-7" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-4" data-code-lines="2" data-code-annotation="1">Argument of type “list[str]” cannot be assigned to parameter “name” of type “str” in function “say_hi” “list[str]” is not assignable to “str”PylancereportArgumentType</span>
+<span data-code-cell="annotated-cell-7" data-code-lines="4" data-code-annotation="1">Argument of type “list[str]” cannot be assigned to parameter “name” of type “str” in function “say_hi”</span>
 </dd>
 </dl>
 </div>
@@ -298,16 +343,694 @@ John Doe
 <div class="ansi-escaped-output">
 <pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
 <span class="ansi-red-fg">AttributeError</span>                            Traceback (most recent call last)
-<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[4]</span><span class="ansi-green-fg">, line 4</span>
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[6]</span><span class="ansi-green-fg">, line 4</span>
 <span class="ansi-green-fg">      1</span> <span style="font-weight:bold;color:rgb(0,135,0)">def</span><span style="color:rgb(188,188,188)"> </span><span class="ansi-blue-fg">say_hi</span>(name: <span style="color:rgb(0,135,0)">str</span>) -&gt; <span style="color:rgb(0,135,0)">str</span>:
-<span class="ansi-green-fg">      2</span>     <span style="font-weight:bold;color:rgb(0,135,0)">return</span> <span class="ansi-yellow-fg">f</span><span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">Hey </span><span style="font-weight:bold;color:rgb(175,95,135)">{</span>name.strip().title()<span style="font-weight:bold;color:rgb(175,95,135)">}</span><span class="ansi-yellow-fg">!</span><span class="ansi-yellow-fg">"</span> <span style="font-style:italic;color:rgb(95,135,135)"># &lt;1&gt;</span>
-<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">4</span> <span style="color:rgb(0,135,0)">print</span>(<span class="ansi-yellow-bg">say_hi</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">[</span><span class="ansi-yellow-fg ansi-yellow-bg">"</span><span class="ansi-yellow-fg ansi-yellow-bg">  arion silvaris </span><span class="ansi-yellow-fg ansi-yellow-bg">"</span><span class="ansi-yellow-bg">]</span><span class="ansi-yellow-bg">)</span>) 
+<span class="ansi-green-fg">      2</span>     <span style="font-weight:bold;color:rgb(0,135,0)">return</span> <span class="ansi-yellow-fg">f</span><span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">Hey </span><span style="font-weight:bold;color:rgb(175,95,135)">{</span>name.strip().title()<span style="font-weight:bold;color:rgb(175,95,135)">}</span><span class="ansi-yellow-fg">!</span><span class="ansi-yellow-fg">"</span> 
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">4</span> <span style="color:rgb(0,135,0)">print</span>(<span class="ansi-yellow-bg">say_hi</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">[</span><span class="ansi-yellow-fg ansi-yellow-bg">"</span><span class="ansi-yellow-fg ansi-yellow-bg">  boromir denethorian </span><span class="ansi-yellow-fg ansi-yellow-bg">"</span><span class="ansi-yellow-bg">]</span><span class="ansi-yellow-bg">)</span>) <span style="font-style:italic;color:rgb(95,135,135)"># &lt;1&gt;</span>
 
-<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[4]</span><span class="ansi-green-fg">, line 2</span>, in <span class="ansi-cyan-fg">say_hi</span><span class="ansi-blue-fg">(name)</span>
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[6]</span><span class="ansi-green-fg">, line 2</span>, in <span class="ansi-cyan-fg">say_hi</span><span class="ansi-blue-fg">(name)</span>
 <span class="ansi-green-fg">      1</span> <span style="font-weight:bold;color:rgb(0,135,0)">def</span><span style="color:rgb(188,188,188)"> </span><span class="ansi-blue-fg">say_hi</span>(name: <span style="color:rgb(0,135,0)">str</span>) -&gt; <span style="color:rgb(0,135,0)">str</span>:
 <span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">2</span>     <span style="font-weight:bold;color:rgb(0,135,0)">return</span> <span class="ansi-yellow-fg">f</span><span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">Hey </span><span style="font-weight:bold;color:rgb(175,95,135)">{</span><span class="ansi-yellow-bg">name</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">strip</span>().title()<span style="font-weight:bold;color:rgb(175,95,135)">}</span><span class="ansi-yellow-fg">!</span><span class="ansi-yellow-fg">"</span>
 
 <span class="ansi-red-fg">AttributeError</span>: 'list' object has no attribute 'strip'</pre>
+</div>
+</div>
+</div>
+</section>
+<section id="section-7" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title"></h2>
+<h2 data-id="title">
+What is this function’s expected type?
+</h2>
+<div id="83928bc5" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb6-1" class="hljs-ln-code"><a href=""></a><span class="kw">def</span> total_character_count(words):</span>
+<span id="cb6-2" class="hljs-ln-code"><a href=""></a>    total <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb6-3" class="hljs-ln-code"><a href=""></a>    <span class="cf">for</span> char <span class="kw">in</span> words:</span>
+<span id="cb6-4" class="hljs-ln-code"><a href=""></a>        total <span class="op">+=</span> <span class="bu">len</span>(char)</span>
+<span id="cb6-5" class="hljs-ln-code"><a href=""></a>    <span class="cf">return</span> total</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="section-8" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title"></h2>
+<h2 data-id="title">
+No IDE guidance on correct usage
+</h2>
+<div id="3b8b3fb7" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb7-1" class="hljs-ln-code"><a href=""></a><span class="kw">def</span> total_character_count(words):</span>
+<span id="cb7-2" class="hljs-ln-code"><a href=""></a>    total <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb7-3" class="hljs-ln-code"><a href=""></a>    <span class="cf">for</span> char <span class="kw">in</span> words:</span>
+<span id="cb7-4" class="hljs-ln-code"><a href=""></a>        total <span class="op">+=</span> <span class="bu">len</span>(char)</span>
+<span id="cb7-5" class="hljs-ln-code"><a href=""></a>    <span class="cf">return</span> total</span>
+<span id="cb7-6" class="hljs-ln-code"><a href=""></a></span>
+<span id="cb7-7" class="hljs-ln-code"><a href=""></a><span class="bu">print</span>(</span>
+<span id="cb7-8" class="hljs-ln-code"><a href=""></a>    <span class="st">"Total character count: "</span>,</span>
+<span id="cb7-9" class="hljs-ln-code"><a href=""></a>    total_character_count(<span class="st">"Flee you fools! You shall not pass!"</span>) </span>
+<span id="cb7-10" class="hljs-ln-code"><a href=""></a>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Total character count:  35</code></pre>
+</div>
+</div>
+</section>
+<section id="section-9" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title"></h2>
+<h2 data-id="title">
+No IDE guidance on correct usage
+</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb9-1" class="hljs-ln-code"><a href=""></a><span class="kw">def</span> total_character_count(words):</span>
+<span id="cb9-2" class="hljs-ln-code"><a href=""></a>    total <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb9-3" class="hljs-ln-code"><a href=""></a>    <span class="cf">for</span> char <span class="kw">in</span> words:</span>
+<span id="cb9-4" class="hljs-ln-code"><a href=""></a>        total <span class="op">+=</span> <span class="bu">len</span>(char)</span>
+<span id="cb9-5" class="hljs-ln-code"><a href=""></a>    <span class="cf">return</span> total</span>
+<span id="cb9-6" class="hljs-ln-code"><a href=""></a></span>
+<span id="cb9-7" class="hljs-ln-code"><a href=""></a><span class="bu">print</span>(</span>
+<span id="cb9-8" class="hljs-ln-code"><a href=""></a>    <span class="st">"Total character count: "</span>,</span>
+<span id="cb9-9" class="hljs-ln-code"><a href=""></a>    total_character_count([<span class="st">"Flee "</span>, <span class="st">"you "</span>, <span class="st">"fools! "</span>,</span>
+<span id="cb9-10" class="hljs-ln-code"><a href=""></a>                        <span class="st">"You "</span>, <span class="st">"shall "</span>, <span class="st">"not "</span>, <span class="st">"pass!"</span>]), </span>
+<span id="cb9-11" class="hljs-ln-code"><a href=""></a>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="section-10" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title"></h2>
+<h2 data-id="title">
+No IDE guidance on correct usage
+</h2>
+<div id="2acb07ad" class="cell" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb10-1" class="hljs-ln-code"><a href=""></a><span class="kw">def</span> total_character_count(words):</span>
+<span id="cb10-2" class="hljs-ln-code"><a href=""></a>    total <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb10-3" class="hljs-ln-code"><a href=""></a>    <span class="cf">for</span> char <span class="kw">in</span> words:</span>
+<span id="cb10-4" class="hljs-ln-code"><a href=""></a>        total <span class="op">+=</span> <span class="bu">len</span>(char)</span>
+<span id="cb10-5" class="hljs-ln-code"><a href=""></a>    <span class="cf">return</span> total</span>
+<span id="cb10-6" class="hljs-ln-code"><a href=""></a></span>
+<span id="cb10-7" class="hljs-ln-code"><a href=""></a><span class="bu">print</span>(</span>
+<span id="cb10-8" class="hljs-ln-code"><a href=""></a>    <span class="st">"Total character count: "</span>,</span>
+<span id="cb10-9" class="hljs-ln-code"><a href=""></a>    total_character_count([<span class="st">"Flee "</span>, <span class="st">"you "</span>, <span class="st">"fools! "</span>,</span>
+<span id="cb10-10" class="hljs-ln-code"><a href=""></a>                        <span class="st">"You "</span>, <span class="st">"shall "</span>, <span class="st">"not "</span>, <span class="st">"pass!"</span>]), </span>
+<span id="cb10-11" class="hljs-ln-code"><a href=""></a>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Total character count:  35</code></pre>
+</div>
+</div>
+</section>
+<section id="section-11" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title"></h2>
+<h2 data-id="title">
+No IDE guidance on correct usage
+</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="annotated-cell-12"><pre class="sourceCode numberSource python code-annotation-code number-lines code-with-copy code-annotated" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="annotated-cell-12-1" class="hljs-ln-code"><a href="#annotated-cell-12-1"></a><span class="kw">def</span> total_character_count(words):</span>
+<span id="annotated-cell-12-2" class="hljs-ln-code"><a href="#annotated-cell-12-2"></a>    total <span class="op">=</span> <span class="dv">0</span></span>
+<span id="annotated-cell-12-3" class="hljs-ln-code"><a href="#annotated-cell-12-3"></a>    <span class="cf">for</span> char <span class="kw">in</span> words:</span>
+<span id="annotated-cell-12-4" class="hljs-ln-code"><a href="#annotated-cell-12-4"></a>        total <span class="op">+=</span> <span class="bu">len</span>(char)</span>
+<span id="annotated-cell-12-5" class="hljs-ln-code"><a href="#annotated-cell-12-5"></a>    <span class="cf">return</span> total</span>
+<span id="annotated-cell-12-6" class="hljs-ln-code"><a href="#annotated-cell-12-6"></a></span>
+<a class="code-annotation-anchor hljs-ln-code" data-target-cell="annotated-cell-12" data-target-annotation="1" onclick="event.preventDefault();" href="">1</a><span id="annotated-cell-12-7" class="code-annotation-target hljs-ln-code"><a href="#annotated-cell-12-7"></a><span class="bu">print</span>(</span>
+<span id="annotated-cell-12-8" class="hljs-ln-code"><a href="#annotated-cell-12-8"></a>    <span class="st">"Total character count: "</span>,</span>
+<span id="annotated-cell-12-9" class="hljs-ln-code"><a href="#annotated-cell-12-9"></a>    total_character_count([(<span class="st">"Flee "</span>, <span class="st">"you "</span>, <span class="st">"fools! "</span>),</span>
+<span id="annotated-cell-12-10" class="hljs-ln-code"><a href="#annotated-cell-12-10"></a>                        (<span class="st">"You "</span>, <span class="st">"shall "</span>, <span class="st">"not "</span>, <span class="st">"pass!"</span>)]), </span>
+<span id="annotated-cell-12-11" class="hljs-ln-code"><a href="#annotated-cell-12-11"></a>) </span><div class="code-annotation-gutter-bg hljs-ln-code"></div><div class="code-annotation-gutter hljs-ln-code"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-12" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-12" data-code-lines="7" data-code-annotation="1">Is this a valid function call?</span>
+</dd>
+</dl>
+</section>
+<section id="section-12" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title"></h2>
+<h2 data-id="title">
+No warnings - issues appear only when executed
+</h2>
+<div id="43f78cc8" class="cell" data-execution_count="10">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="annotated-cell-13"><pre class="sourceCode numberSource python code-annotation-code number-lines code-with-copy code-annotated" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="annotated-cell-13-1" class="hljs-ln-code"><a href="#annotated-cell-13-1"></a><span class="kw">def</span> total_character_count(words):</span>
+<span id="annotated-cell-13-2" class="hljs-ln-code"><a href="#annotated-cell-13-2"></a>    total <span class="op">=</span> <span class="dv">0</span></span>
+<span id="annotated-cell-13-3" class="hljs-ln-code"><a href="#annotated-cell-13-3"></a>    <span class="cf">for</span> char <span class="kw">in</span> words:</span>
+<span id="annotated-cell-13-4" class="hljs-ln-code"><a href="#annotated-cell-13-4"></a>        total <span class="op">+=</span> <span class="bu">len</span>(char)</span>
+<span id="annotated-cell-13-5" class="hljs-ln-code"><a href="#annotated-cell-13-5"></a>    <span class="cf">return</span> total</span>
+<span id="annotated-cell-13-6" class="hljs-ln-code"><a href="#annotated-cell-13-6"></a></span>
+<span id="annotated-cell-13-7" class="hljs-ln-code"><a href="#annotated-cell-13-7"></a><span class="bu">print</span>(<span class="st">"Total character count: "</span>,</span>
+<a class="code-annotation-anchor hljs-ln-code" data-target-cell="annotated-cell-13" data-target-annotation="1" onclick="event.preventDefault();" href="">1</a><span id="annotated-cell-13-8" class="code-annotation-target hljs-ln-code"><a href="#annotated-cell-13-8"></a>     total_character_count([(<span class="st">"Flee"</span>,<span class="st">"you"</span>,<span class="st">"fools!"</span>),(<span class="st">"You"</span>,<span class="st">"shall"</span>,<span class="st">"not"</span>,<span class="st">"pass!"</span>)]))</span><div class="code-annotation-gutter-bg hljs-ln-code"></div><div class="code-annotation-gutter hljs-ln-code"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-13" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-13" data-code-lines="8" data-code-annotation="1">No type hint is shown!</span>
+</dd>
+</dl>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Total character count:  7</code></pre>
+</div>
+</div>
+</section>
+<section id="section-13" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title"></h2>
+<h2 data-id="title">
+Type: expects a string OR a list of strings and returns an integer
+</h2>
+<div id="fad88f78" class="cell" data-execution_count="11">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13" data-code-line-numbers="|1"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb13-1" class="hljs-ln-code"><a href=""></a><span class="kw">def</span> total_character_count(words: <span class="bu">str</span> <span class="op">|</span> <span class="bu">list</span>[<span class="bu">str</span>]) <span class="op">-&gt;</span> <span class="bu">int</span>:</span>
+<span id="cb13-2" class="hljs-ln-code"><a href=""></a>    total <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb13-3" class="hljs-ln-code"><a href=""></a>    <span class="cf">for</span> char <span class="kw">in</span> words:</span>
+<span id="cb13-4" class="hljs-ln-code"><a href=""></a>        total <span class="op">+=</span> <span class="bu">len</span>(char)</span>
+<span id="cb13-5" class="hljs-ln-code"><a href=""></a>    <span class="cf">return</span> total</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="section-14" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title"></h2>
+<h2 data-id="title">
+Type checker now gives a clear warning
+</h2>
+<div id="2fb27328" class="cell" data-execution_count="12">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="annotated-cell-15"><pre class="sourceCode numberSource python code-annotation-code number-lines code-with-copy code-annotated" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="annotated-cell-15-1" class="hljs-ln-code"><a href="#annotated-cell-15-1"></a><span class="kw">def</span> total_character_count(words: <span class="bu">str</span> <span class="op">|</span> <span class="bu">list</span>[<span class="bu">str</span>]) <span class="op">-&gt;</span> <span class="bu">int</span>:</span>
+<span id="annotated-cell-15-2" class="hljs-ln-code"><a href="#annotated-cell-15-2"></a>    total <span class="op">=</span> <span class="dv">0</span></span>
+<span id="annotated-cell-15-3" class="hljs-ln-code"><a href="#annotated-cell-15-3"></a>    <span class="cf">for</span> char <span class="kw">in</span> words:</span>
+<span id="annotated-cell-15-4" class="hljs-ln-code"><a href="#annotated-cell-15-4"></a>        total <span class="op">+=</span> <span class="bu">len</span>(char)</span>
+<span id="annotated-cell-15-5" class="hljs-ln-code"><a href="#annotated-cell-15-5"></a>    <span class="cf">return</span> total</span>
+<span id="annotated-cell-15-6" class="hljs-ln-code"><a href="#annotated-cell-15-6"></a></span>
+<span id="annotated-cell-15-7" class="hljs-ln-code"><a href="#annotated-cell-15-7"></a><span class="bu">print</span>(</span>
+<span id="annotated-cell-15-8" class="hljs-ln-code"><a href="#annotated-cell-15-8"></a>    <span class="st">"Total character count: "</span>,</span>
+<span id="annotated-cell-15-9" class="hljs-ln-code"><a href="#annotated-cell-15-9"></a>    total_character_count(<span class="st">"Flee you fools! You shall not pass!"</span>) </span>
+<span id="annotated-cell-15-10" class="hljs-ln-code"><a href="#annotated-cell-15-10"></a>) </span>
+<span id="annotated-cell-15-11" class="hljs-ln-code"><a href="#annotated-cell-15-11"></a></span>
+<span id="annotated-cell-15-12" class="hljs-ln-code"><a href="#annotated-cell-15-12"></a><span class="bu">print</span>(</span>
+<span id="annotated-cell-15-13" class="hljs-ln-code"><a href="#annotated-cell-15-13"></a>    <span class="st">"Total character count: "</span>,</span>
+<span id="annotated-cell-15-14" class="hljs-ln-code"><a href="#annotated-cell-15-14"></a>    total_character_count([<span class="st">"Flee "</span>, <span class="st">"you "</span>, <span class="st">"fools! "</span>,</span>
+<span id="annotated-cell-15-15" class="hljs-ln-code"><a href="#annotated-cell-15-15"></a>                        <span class="st">"You "</span>, <span class="st">"shall "</span>, <span class="st">"not "</span>, <span class="st">"pass!"</span>]), </span>
+<span id="annotated-cell-15-16" class="hljs-ln-code"><a href="#annotated-cell-15-16"></a>) </span>
+<span id="annotated-cell-15-17" class="hljs-ln-code"><a href="#annotated-cell-15-17"></a></span>
+<a class="code-annotation-anchor hljs-ln-code" data-target-cell="annotated-cell-15" data-target-annotation="1" onclick="event.preventDefault();" href="">1</a><span id="annotated-cell-15-18" class="code-annotation-target hljs-ln-code"><a href="#annotated-cell-15-18"></a><span class="bu">print</span>(</span>
+<span id="annotated-cell-15-19" class="hljs-ln-code"><a href="#annotated-cell-15-19"></a>    <span class="st">"Total character count: "</span>,</span>
+<span id="annotated-cell-15-20" class="hljs-ln-code"><a href="#annotated-cell-15-20"></a>    total_character_count([(<span class="st">"Flee "</span>, <span class="st">"you "</span>, <span class="st">"fools! "</span>),</span>
+<span id="annotated-cell-15-21" class="hljs-ln-code"><a href="#annotated-cell-15-21"></a>                        (<span class="st">"You "</span>, <span class="st">"shall "</span>, <span class="st">"not "</span>, <span class="st">"pass!"</span>)]), </span>
+<span id="annotated-cell-15-22" class="hljs-ln-code"><a href="#annotated-cell-15-22"></a>) </span><div class="code-annotation-gutter-bg hljs-ln-code"></div><div class="code-annotation-gutter hljs-ln-code"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-15" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-15" data-code-lines="18" data-code-annotation="1">Argument of type “list[str | tuple[str, str, str, str]]” cannot be assigned to parameter “words” of type “str | list[str]”</span>
+</dd>
+</dl>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Total character count:  35
+Total character count:  35
+Total character count:  7</code></pre>
+</div>
+</div>
+</section>
+<section id="section-15" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title"></h2>
+<h2 data-id="title">
+Type checker now gives a clear warning
+</h2>
+
+<img src="images/type_complaint.png" style="width:90%; display:block; margin:auto;" class="r-stretch"></section>
+<section id="section-16" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title"></h2>
+<h2 data-id="title">
+Clear type guidance
+</h2>
+
+<img src="images/type_hinting.png" style="width:75%; display:block; margin:auto;" class="r-stretch"></section>
+<section id="section-17" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title"></h2>
+<h2 data-id="title">
+Safe and flexible functions with clear contracts
+</h2>
+<div id="62e72347" class="cell" data-execution_count="13">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15" data-code-line-numbers="|1-2"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb15-1" class="hljs-ln-code"><a href=""></a><span class="im">from</span> collections.abc <span class="im">import</span> Iterable</span>
+<span id="cb15-2" class="hljs-ln-code"><a href=""></a></span>
+<span id="cb15-3" class="hljs-ln-code"><a href=""></a><span class="kw">def</span> total_character_count(words: Iterable[<span class="bu">str</span>]) <span class="op">-&gt;</span> <span class="bu">int</span>:</span>
+<span id="cb15-4" class="hljs-ln-code"><a href=""></a>    total <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb15-5" class="hljs-ln-code"><a href=""></a>    <span class="cf">for</span> char <span class="kw">in</span> words:</span>
+<span id="cb15-6" class="hljs-ln-code"><a href=""></a>        total <span class="op">+=</span> <span class="bu">len</span>(char)</span>
+<span id="cb15-7" class="hljs-ln-code"><a href=""></a>    <span class="cf">return</span> total</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="section-18" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title"></h2>
+<h2 data-id="title">
+The magic of type hints / annotations!
+</h2>
+<div id="1f308e76" class="cell" data-execution_count="14">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="annotated-cell-17"><pre class="sourceCode numberSource python code-annotation-code number-lines code-with-copy code-annotated" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="annotated-cell-17-1" class="hljs-ln-code"><a href="#annotated-cell-17-1"></a><span class="im">from</span> collections.abc <span class="im">import</span> Iterable</span>
+<span id="annotated-cell-17-2" class="hljs-ln-code"><a href="#annotated-cell-17-2"></a></span>
+<span id="annotated-cell-17-3" class="hljs-ln-code"><a href="#annotated-cell-17-3"></a><span class="kw">def</span> total_character_count(words: Iterable[<span class="bu">str</span>]) <span class="op">-&gt;</span> <span class="bu">int</span>:</span>
+<span id="annotated-cell-17-4" class="hljs-ln-code"><a href="#annotated-cell-17-4"></a>    total <span class="op">=</span> <span class="dv">0</span></span>
+<span id="annotated-cell-17-5" class="hljs-ln-code"><a href="#annotated-cell-17-5"></a>    <span class="cf">for</span> char <span class="kw">in</span> words:</span>
+<span id="annotated-cell-17-6" class="hljs-ln-code"><a href="#annotated-cell-17-6"></a>        total <span class="op">+=</span> <span class="bu">len</span>(char)</span>
+<span id="annotated-cell-17-7" class="hljs-ln-code"><a href="#annotated-cell-17-7"></a>    <span class="cf">return</span> total</span>
+<span id="annotated-cell-17-8" class="hljs-ln-code"><a href="#annotated-cell-17-8"></a></span>
+<span id="annotated-cell-17-9" class="hljs-ln-code"><a href="#annotated-cell-17-9"></a><span class="bu">print</span>(<span class="st">"Count: "</span>,total_character_count([<span class="st">"Hello"</span>, <span class="st">" world!"</span>]))  <span class="co"># list of strings</span></span>
+<span id="annotated-cell-17-10" class="hljs-ln-code"><a href="#annotated-cell-17-10"></a><span class="bu">print</span>(<span class="st">"Count: "</span>,total_character_count((<span class="st">"Hello"</span>, <span class="st">" world!"</span>)))  <span class="co"># tuple of strings</span></span>
+<span id="annotated-cell-17-11" class="hljs-ln-code"><a href="#annotated-cell-17-11"></a><span class="bu">print</span>(<span class="st">"Count: "</span>,total_character_count({<span class="st">"Hello"</span>, <span class="st">" world!"</span>}))  <span class="co"># set of strings</span></span>
+<span id="annotated-cell-17-12" class="hljs-ln-code"><a href="#annotated-cell-17-12"></a><span class="bu">print</span>(<span class="st">"Count: "</span>,total_character_count(word <span class="cf">for</span> word <span class="kw">in</span> [<span class="st">"Hello"</span>, <span class="st">" world!"</span>])) <span class="co"># generator yielding strings</span></span>
+<span id="annotated-cell-17-13" class="hljs-ln-code"><a href="#annotated-cell-17-13"></a><span class="bu">print</span>(<span class="st">"Count: "</span>,total_character_count(<span class="bu">iter</span>([<span class="st">"Hello"</span>, <span class="st">" world!"</span>]))) <span class="co"># iterator of strings</span></span>
+<span id="annotated-cell-17-14" class="hljs-ln-code"><a href="#annotated-cell-17-14"></a><span class="bu">print</span>(<span class="st">"Count: "</span>,total_character_count(<span class="st">"Hello world!"</span>))  </span>
+<a class="code-annotation-anchor hljs-ln-code" data-target-cell="annotated-cell-17" data-target-annotation="1" onclick="event.preventDefault();" href="">1</a><span id="annotated-cell-17-15" class="code-annotation-target hljs-ln-code"><a href="#annotated-cell-17-15"></a><span class="bu">print</span>(<span class="st">"Count: "</span>,total_character_count([(<span class="st">"Hello"</span>,<span class="st">" world!"</span>)]))</span><div class="code-annotation-gutter-bg hljs-ln-code"></div><div class="code-annotation-gutter hljs-ln-code"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-17" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-17" data-code-lines="15" data-code-annotation="1">Argument of type “Literal[12345]” cannot be assigned to parameter “words” of type “Iterable[str]”</span>
+</dd>
+</dl>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Count:  12
+Count:  12
+Count:  12
+Count:  12
+Count:  12
+Count:  12
+Count:  2</code></pre>
+</div>
+</div>
+</section>
+<section id="section-19" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title"></h2>
+<h2 data-id="title">
+Manage character data in a role-playing game
+</h2>
+<div id="45502029" class="cell" data-execution_count="15">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb17-1" class="hljs-ln-code"><a href=""></a><span class="kw">def</span> update_attribute(character, attribute_name, delta):</span>
+<span id="cb17-2" class="hljs-ln-code"><a href=""></a></span>
+<span id="cb17-3" class="hljs-ln-code"><a href=""></a>    <span class="cf">if</span> attribute_name <span class="kw">not</span> <span class="kw">in</span> character[<span class="st">"attributes"</span>]:</span>
+<span id="cb17-4" class="hljs-ln-code"><a href=""></a>        <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">"Unknown attribute"</span>)</span>
+<span id="cb17-5" class="hljs-ln-code"><a href=""></a></span>
+<span id="cb17-6" class="hljs-ln-code"><a href=""></a>    character[<span class="st">"attributes"</span>][attribute_name] <span class="op">+=</span> delta</span>
+<span id="cb17-7" class="hljs-ln-code"><a href=""></a></span>
+<span id="cb17-8" class="hljs-ln-code"><a href=""></a>    <span class="cf">return</span> character</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<h3 data-id="title">
+We cannot determine the contract from this code
+</h3>
+</section>
+<section id="section-20" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title"></h2>
+<h2 data-id="title">
+Comment-based type definitions
+</h2>
+<div id="1ee426fd" class="cell" data-execution_count="16">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb18-1" class="hljs-ln-code"><a href=""></a><span class="kw">def</span> update_attribute(character, attribute_name, delta):</span>
+<span id="cb18-2" class="hljs-ln-code"><a href=""></a>    <span class="co">"""</span></span>
+<span id="cb18-3" class="hljs-ln-code"><a href=""></a><span class="co">    Update a character's attribute by adding a delta value.</span></span>
+<span id="cb18-4" class="hljs-ln-code"><a href=""></a></span>
+<span id="cb18-5" class="hljs-ln-code"><a href=""></a><span class="co">    character: a dictionary representing the character.</span></span>
+<span id="cb18-6" class="hljs-ln-code"><a href=""></a><span class="co">        Expected structure:</span></span>
+<span id="cb18-7" class="hljs-ln-code"><a href=""></a><span class="co">        {</span></span>
+<span id="cb18-8" class="hljs-ln-code"><a href=""></a><span class="co">            "name": str,</span></span>
+<span id="cb18-9" class="hljs-ln-code"><a href=""></a><span class="co">            "attributes": {</span></span>
+<span id="cb18-10" class="hljs-ln-code"><a href=""></a><span class="co">                "Might": int,</span></span>
+<span id="cb18-11" class="hljs-ln-code"><a href=""></a><span class="co">                "Agility": int,</span></span>
+<span id="cb18-12" class="hljs-ln-code"><a href=""></a><span class="co">                "Vitality": int,</span></span>
+<span id="cb18-13" class="hljs-ln-code"><a href=""></a><span class="co">                ...</span></span>
+<span id="cb18-14" class="hljs-ln-code"><a href=""></a><span class="co">            }</span></span>
+<span id="cb18-15" class="hljs-ln-code"><a href=""></a><span class="co">        }</span></span>
+<span id="cb18-16" class="hljs-ln-code"><a href=""></a></span>
+<span id="cb18-17" class="hljs-ln-code"><a href=""></a><span class="co">    attribute_name: the name of the attribute to update (string)</span></span>
+<span id="cb18-18" class="hljs-ln-code"><a href=""></a><span class="co">    delta: the amount to add or subtract (integer)</span></span>
+<span id="cb18-19" class="hljs-ln-code"><a href=""></a></span>
+<span id="cb18-20" class="hljs-ln-code"><a href=""></a><span class="co">    Returns the updated character dictionary.</span></span>
+<span id="cb18-21" class="hljs-ln-code"><a href=""></a><span class="co">    """</span></span>
+<span id="cb18-22" class="hljs-ln-code"><a href=""></a></span>
+<span id="cb18-23" class="hljs-ln-code"><a href=""></a>    <span class="cf">if</span> attribute_name <span class="kw">not</span> <span class="kw">in</span> character[<span class="st">"attributes"</span>]:</span>
+<span id="cb18-24" class="hljs-ln-code"><a href=""></a>        <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">"Unknown attribute"</span>)</span>
+<span id="cb18-25" class="hljs-ln-code"><a href=""></a></span>
+<span id="cb18-26" class="hljs-ln-code"><a href=""></a>    character[<span class="st">"attributes"</span>][attribute_name] <span class="op">+=</span> delta</span>
+<span id="cb18-27" class="hljs-ln-code"><a href=""></a></span>
+<span id="cb18-28" class="hljs-ln-code"><a href=""></a>    <span class="cf">return</span> character</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="section-21" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title"></h2>
+<h2 data-id="title">
+Spot the mistakes
+</h2>
+<div id="ea5db91e" class="cell" data-execution_count="17">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19" data-code-line-numbers="|3,4"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb19-1" class="hljs-ln-code"><a href=""></a>character: Character <span class="op">=</span> {</span>
+<span id="cb19-2" class="hljs-ln-code"><a href=""></a>    <span class="st">"name"</span>: <span class="st">"Aelar"</span>,</span>
+<span id="cb19-3" class="hljs-ln-code"><a href=""></a>    <span class="st">"attribute"</span>: {</span>
+<span id="cb19-4" class="hljs-ln-code"><a href=""></a>        <span class="st">"might"</span>: <span class="dv">10</span>,</span>
+<span id="cb19-5" class="hljs-ln-code"><a href=""></a>        <span class="st">"Agility"</span>: <span class="dv">8</span>,</span>
+<span id="cb19-6" class="hljs-ln-code"><a href=""></a>        <span class="st">"Vitality"</span>: <span class="dv">12</span>,</span>
+<span id="cb19-7" class="hljs-ln-code"><a href=""></a>        <span class="st">"Insight"</span>: <span class="dv">14</span>,</span>
+<span id="cb19-8" class="hljs-ln-code"><a href=""></a>        <span class="st">"Arcana"</span>: <span class="dv">16</span>,</span>
+<span id="cb19-9" class="hljs-ln-code"><a href=""></a>        <span class="st">"Presence"</span>: <span class="dv">11</span>,</span>
+<span id="cb19-10" class="hljs-ln-code"><a href=""></a>    },</span>
+<span id="cb19-11" class="hljs-ln-code"><a href=""></a>}</span>
+<span id="cb19-12" class="hljs-ln-code"><a href=""></a></span>
+<span id="cb19-13" class="hljs-ln-code"><a href=""></a><span class="bu">print</span>(character)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>{'name': 'Aelar', 'attribute': {'might': 10, 'Agility': 8, 'Vitality': 12, 'Insight': 14, 'Arcana': 16, 'Presence': 11}}</code></pre>
+</div>
+</div>
+</section>
+<section id="section-22" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title"></h2>
+<h2 data-id="title">
+A perfect function call breaks!
+</h2>
+<div id="98093d04" class="cell" data-execution_count="18">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb21-1" class="hljs-ln-code"><a href=""></a>update_attribute(character, <span class="st">"Might"</span>, <span class="dv">200</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-error">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">KeyError</span>                                  Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[18]</span><span class="ansi-green-fg">, line 1</span>
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">1</span> <span class="ansi-yellow-bg">update_attribute</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">character</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-fg ansi-yellow-bg">"</span><span class="ansi-yellow-fg ansi-yellow-bg">Might</span><span class="ansi-yellow-fg ansi-yellow-bg">"</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-green-fg ansi-yellow-bg">200</span><span class="ansi-yellow-bg">)</span>
+
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[16]</span><span class="ansi-green-fg">, line 23</span>, in <span class="ansi-cyan-fg">update_attribute</span><span class="ansi-blue-fg">(character, attribute_name, delta)</span>
+<span class="ansi-green-fg">      1</span> <span style="font-weight:bold;color:rgb(0,135,0)">def</span><span style="color:rgb(188,188,188)"> </span><span class="ansi-blue-fg">update_attribute</span>(character, attribute_name, delta):
+<span class="ansi-green-fg">      2</span> <span style="color:rgb(188,188,188)">    </span><span style="font-style:italic" class="ansi-yellow-fg">"""</span>
+<span class="ansi-green-fg">      3</span> <span style="font-style:italic" class="ansi-yellow-fg">    Update a character's attribute by adding a delta value.</span>
+<span class="ansi-green-fg">      4</span> 
+<span class="ansi-green-fg">   (...)</span><span class="ansi-green-fg">     20</span> <span style="font-style:italic" class="ansi-yellow-fg">    Returns the updated character dictionary.</span>
+<span class="ansi-green-fg">     21</span> <span style="font-style:italic" class="ansi-yellow-fg">    """</span>
+<span class="ansi-green-fg">---&gt; </span><span class="ansi-green-fg">23</span>     <span style="font-weight:bold;color:rgb(0,135,0)">if</span> attribute_name <span style="font-weight:bold;color:rgb(175,0,255)">not</span> <span style="font-weight:bold;color:rgb(175,0,255)">in</span> <span class="ansi-yellow-bg">character</span><span class="ansi-yellow-bg">[</span><span class="ansi-yellow-fg ansi-yellow-bg">"</span><span class="ansi-yellow-fg ansi-yellow-bg">attributes</span><span class="ansi-yellow-fg ansi-yellow-bg">"</span><span class="ansi-yellow-bg">]</span>:
+<span class="ansi-green-fg">     24</span>         <span style="font-weight:bold;color:rgb(0,135,0)">raise</span> <span style="font-weight:bold;color:rgb(215,95,95)">ValueError</span>(<span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">Unknown attribute</span><span class="ansi-yellow-fg">"</span>)
+<span class="ansi-green-fg">     26</span>     character[<span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">attributes</span><span class="ansi-yellow-fg">"</span>][attribute_name] += delta
+
+<span class="ansi-red-fg">KeyError</span>: 'attributes'</pre>
+</div>
+</div>
+</div>
+</section>
+<section id="section-23" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title"></h2>
+<h2 data-id="title">
+Literal restricts to one of a fixed set of exact values
+</h2>
+<div id="b47addb7" class="cell" data-execution_count="19">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb22-1" class="hljs-ln-code"><a href=""></a><span class="im">from</span> typing <span class="im">import</span> Literal</span>
+<span id="cb22-2" class="hljs-ln-code"><a href=""></a></span>
+<span id="cb22-3" class="hljs-ln-code"><a href=""></a></span>
+<span id="cb22-4" class="hljs-ln-code"><a href=""></a>AttributeName <span class="op">=</span> Literal[</span>
+<span id="cb22-5" class="hljs-ln-code"><a href=""></a>    <span class="st">"Might"</span>,</span>
+<span id="cb22-6" class="hljs-ln-code"><a href=""></a>    <span class="st">"Agility"</span>,</span>
+<span id="cb22-7" class="hljs-ln-code"><a href=""></a>    <span class="st">"Vitality"</span>,</span>
+<span id="cb22-8" class="hljs-ln-code"><a href=""></a>    <span class="st">"Insight"</span>,</span>
+<span id="cb22-9" class="hljs-ln-code"><a href=""></a>    <span class="st">"Arcana"</span>,</span>
+<span id="cb22-10" class="hljs-ln-code"><a href=""></a>    <span class="st">"Presence"</span>,</span>
+<span id="cb22-11" class="hljs-ln-code"><a href=""></a>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<h2 data-id="title">
+Still just a type - no runtime protection.
+</h2>
+</section>
+<section id="section-24" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title"></h2>
+<h2 data-id="title">
+TypedDict defines a dictionary’s shape.
+</h2>
+<div id="2a342b3d" class="cell" data-execution_count="20">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23" data-code-line-numbers="|14-20"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb23-1" class="hljs-ln-code"><a href=""></a><span class="im">from</span> typing <span class="im">import</span> TypedDict, Literal</span>
+<span id="cb23-2" class="hljs-ln-code"><a href=""></a></span>
+<span id="cb23-3" class="hljs-ln-code"><a href=""></a></span>
+<span id="cb23-4" class="hljs-ln-code"><a href=""></a>AttributeName <span class="op">=</span> Literal[</span>
+<span id="cb23-5" class="hljs-ln-code"><a href=""></a>    <span class="st">"Might"</span>,</span>
+<span id="cb23-6" class="hljs-ln-code"><a href=""></a>    <span class="st">"Agility"</span>,</span>
+<span id="cb23-7" class="hljs-ln-code"><a href=""></a>    <span class="st">"Vitality"</span>,</span>
+<span id="cb23-8" class="hljs-ln-code"><a href=""></a>    <span class="st">"Insight"</span>,</span>
+<span id="cb23-9" class="hljs-ln-code"><a href=""></a>    <span class="st">"Arcana"</span>,</span>
+<span id="cb23-10" class="hljs-ln-code"><a href=""></a>    <span class="st">"Presence"</span>,</span>
+<span id="cb23-11" class="hljs-ln-code"><a href=""></a>]</span>
+<span id="cb23-12" class="hljs-ln-code"><a href=""></a></span>
+<span id="cb23-13" class="hljs-ln-code"><a href=""></a></span>
+<span id="cb23-14" class="hljs-ln-code"><a href=""></a><span class="kw">class</span> Attributes(TypedDict):</span>
+<span id="cb23-15" class="hljs-ln-code"><a href=""></a>    Might: <span class="bu">int</span></span>
+<span id="cb23-16" class="hljs-ln-code"><a href=""></a>    Agility: <span class="bu">int</span></span>
+<span id="cb23-17" class="hljs-ln-code"><a href=""></a>    Vitality: <span class="bu">int</span></span>
+<span id="cb23-18" class="hljs-ln-code"><a href=""></a>    Insight: <span class="bu">int</span></span>
+<span id="cb23-19" class="hljs-ln-code"><a href=""></a>    Arcana: <span class="bu">int</span></span>
+<span id="cb23-20" class="hljs-ln-code"><a href=""></a>    Presence: <span class="bu">int</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="section-25" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title"></h2>
+<h2 data-id="title">
+This shows types built by composing other types
+</h2>
+<div id="307e5bba" class="cell" data-execution_count="21">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24" data-code-line-numbers="|23-25"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb24-1" class="hljs-ln-code"><a href=""></a><span class="im">from</span> typing <span class="im">import</span> TypedDict, Literal</span>
+<span id="cb24-2" class="hljs-ln-code"><a href=""></a></span>
+<span id="cb24-3" class="hljs-ln-code"><a href=""></a></span>
+<span id="cb24-4" class="hljs-ln-code"><a href=""></a>AttributeName <span class="op">=</span> Literal[</span>
+<span id="cb24-5" class="hljs-ln-code"><a href=""></a>    <span class="st">"Might"</span>,</span>
+<span id="cb24-6" class="hljs-ln-code"><a href=""></a>    <span class="st">"Agility"</span>,</span>
+<span id="cb24-7" class="hljs-ln-code"><a href=""></a>    <span class="st">"Vitality"</span>,</span>
+<span id="cb24-8" class="hljs-ln-code"><a href=""></a>    <span class="st">"Insight"</span>,</span>
+<span id="cb24-9" class="hljs-ln-code"><a href=""></a>    <span class="st">"Arcana"</span>,</span>
+<span id="cb24-10" class="hljs-ln-code"><a href=""></a>    <span class="st">"Presence"</span>,</span>
+<span id="cb24-11" class="hljs-ln-code"><a href=""></a>]</span>
+<span id="cb24-12" class="hljs-ln-code"><a href=""></a></span>
+<span id="cb24-13" class="hljs-ln-code"><a href=""></a></span>
+<span id="cb24-14" class="hljs-ln-code"><a href=""></a><span class="kw">class</span> Attributes(TypedDict):</span>
+<span id="cb24-15" class="hljs-ln-code"><a href=""></a>    Might: <span class="bu">int</span></span>
+<span id="cb24-16" class="hljs-ln-code"><a href=""></a>    Agility: <span class="bu">int</span></span>
+<span id="cb24-17" class="hljs-ln-code"><a href=""></a>    Vitality: <span class="bu">int</span></span>
+<span id="cb24-18" class="hljs-ln-code"><a href=""></a>    Insight: <span class="bu">int</span></span>
+<span id="cb24-19" class="hljs-ln-code"><a href=""></a>    Arcana: <span class="bu">int</span></span>
+<span id="cb24-20" class="hljs-ln-code"><a href=""></a>    Presence: <span class="bu">int</span></span>
+<span id="cb24-21" class="hljs-ln-code"><a href=""></a></span>
+<span id="cb24-22" class="hljs-ln-code"><a href=""></a></span>
+<span id="cb24-23" class="hljs-ln-code"><a href=""></a><span class="kw">class</span> Character(TypedDict):</span>
+<span id="cb24-24" class="hljs-ln-code"><a href=""></a>    name: <span class="bu">str</span></span>
+<span id="cb24-25" class="hljs-ln-code"><a href=""></a>    attributes: Attributes</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="section-26" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title"></h2>
+<h2 data-id="title">
+Types will ensure correct usage of this complex function
+</h2>
+<div id="9f0e81a6" class="cell" data-execution_count="22">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25" data-code-line-numbers="28-34|"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb25-1" class="hljs-ln-code"><a href=""></a><span class="im">from</span> typing <span class="im">import</span> TypedDict, Literal</span>
+<span id="cb25-2" class="hljs-ln-code"><a href=""></a></span>
+<span id="cb25-3" class="hljs-ln-code"><a href=""></a></span>
+<span id="cb25-4" class="hljs-ln-code"><a href=""></a>AttributeName <span class="op">=</span> Literal[</span>
+<span id="cb25-5" class="hljs-ln-code"><a href=""></a>    <span class="st">"Might"</span>,</span>
+<span id="cb25-6" class="hljs-ln-code"><a href=""></a>    <span class="st">"Agility"</span>,</span>
+<span id="cb25-7" class="hljs-ln-code"><a href=""></a>    <span class="st">"Vitality"</span>,</span>
+<span id="cb25-8" class="hljs-ln-code"><a href=""></a>    <span class="st">"Insight"</span>,</span>
+<span id="cb25-9" class="hljs-ln-code"><a href=""></a>    <span class="st">"Arcana"</span>,</span>
+<span id="cb25-10" class="hljs-ln-code"><a href=""></a>    <span class="st">"Presence"</span>,</span>
+<span id="cb25-11" class="hljs-ln-code"><a href=""></a>]</span>
+<span id="cb25-12" class="hljs-ln-code"><a href=""></a></span>
+<span id="cb25-13" class="hljs-ln-code"><a href=""></a></span>
+<span id="cb25-14" class="hljs-ln-code"><a href=""></a><span class="kw">class</span> Attributes(TypedDict):</span>
+<span id="cb25-15" class="hljs-ln-code"><a href=""></a>    Might: <span class="bu">int</span></span>
+<span id="cb25-16" class="hljs-ln-code"><a href=""></a>    Agility: <span class="bu">int</span></span>
+<span id="cb25-17" class="hljs-ln-code"><a href=""></a>    Vitality: <span class="bu">int</span></span>
+<span id="cb25-18" class="hljs-ln-code"><a href=""></a>    Insight: <span class="bu">int</span></span>
+<span id="cb25-19" class="hljs-ln-code"><a href=""></a>    Arcana: <span class="bu">int</span></span>
+<span id="cb25-20" class="hljs-ln-code"><a href=""></a>    Presence: <span class="bu">int</span></span>
+<span id="cb25-21" class="hljs-ln-code"><a href=""></a></span>
+<span id="cb25-22" class="hljs-ln-code"><a href=""></a></span>
+<span id="cb25-23" class="hljs-ln-code"><a href=""></a><span class="kw">class</span> Character(TypedDict):</span>
+<span id="cb25-24" class="hljs-ln-code"><a href=""></a>    name: <span class="bu">str</span></span>
+<span id="cb25-25" class="hljs-ln-code"><a href=""></a>    attributes: Attributes</span>
+<span id="cb25-26" class="hljs-ln-code"><a href=""></a></span>
+<span id="cb25-27" class="hljs-ln-code"><a href=""></a></span>
+<span id="cb25-28" class="hljs-ln-code"><a href=""></a><span class="kw">def</span> update_attribute(</span>
+<span id="cb25-29" class="hljs-ln-code"><a href=""></a>    character: Character,</span>
+<span id="cb25-30" class="hljs-ln-code"><a href=""></a>    attribute_name: AttributeName,</span>
+<span id="cb25-31" class="hljs-ln-code"><a href=""></a>    delta: <span class="bu">int</span>,</span>
+<span id="cb25-32" class="hljs-ln-code"><a href=""></a>) <span class="op">-&gt;</span> Character:</span>
+<span id="cb25-33" class="hljs-ln-code"><a href=""></a>    character[<span class="st">"attributes"</span>][attribute_name] <span class="op">+=</span> delta</span>
+<span id="cb25-34" class="hljs-ln-code"><a href=""></a>    <span class="cf">return</span> character</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="section-27" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title"></h2>
+<h2 data-id="title">
+Example usage
+</h2>
+<div id="96642226" class="cell" data-execution_count="23">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26" data-code-line-numbers=""><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb26-1" class="hljs-ln-code"><a href=""></a>character: Character <span class="op">=</span> {</span>
+<span id="cb26-2" class="hljs-ln-code"><a href=""></a>    <span class="st">"name"</span>: <span class="st">"Aelar"</span>,</span>
+<span id="cb26-3" class="hljs-ln-code"><a href=""></a>    <span class="st">"attributes"</span>: {</span>
+<span id="cb26-4" class="hljs-ln-code"><a href=""></a>        <span class="st">"Might"</span>: <span class="dv">10</span>,</span>
+<span id="cb26-5" class="hljs-ln-code"><a href=""></a>        <span class="st">"Agility"</span>: <span class="dv">8</span>,</span>
+<span id="cb26-6" class="hljs-ln-code"><a href=""></a>        <span class="st">"Vitality"</span>: <span class="dv">12</span>,</span>
+<span id="cb26-7" class="hljs-ln-code"><a href=""></a>        <span class="st">"Insight"</span>: <span class="dv">14</span>,</span>
+<span id="cb26-8" class="hljs-ln-code"><a href=""></a>        <span class="st">"Arcana"</span>: <span class="dv">16</span>,</span>
+<span id="cb26-9" class="hljs-ln-code"><a href=""></a>        <span class="st">"Presence"</span>: <span class="dv">11</span>,</span>
+<span id="cb26-10" class="hljs-ln-code"><a href=""></a>    },</span>
+<span id="cb26-11" class="hljs-ln-code"><a href=""></a>}</span>
+<span id="cb26-12" class="hljs-ln-code"><a href=""></a></span>
+<span id="cb26-13" class="hljs-ln-code"><a href=""></a><span class="bu">print</span>(character)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>{'name': 'Aelar', 'attributes': {'Might': 10, 'Agility': 8, 'Vitality': 12, 'Insight': 14, 'Arcana': 16, 'Presence': 11}}</code></pre>
+</div>
+</div>
+</section>
+<section id="section-28" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title"></h2>
+<h2 data-id="title">
+We still do not have runtime data integrity protection
+</h2>
+<div id="ba467b1f" class="cell" data-execution_count="24">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="annotated-cell-27" data-code-line-numbers=""><pre class="sourceCode numberSource python code-annotation-code number-lines code-with-copy code-annotated" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="annotated-cell-27-1" class="hljs-ln-code"><a href="#annotated-cell-27-1"></a>character: Character <span class="op">=</span> {</span>
+<span id="annotated-cell-27-2" class="hljs-ln-code"><a href="#annotated-cell-27-2"></a>    <span class="st">"name"</span>: <span class="st">"Aelar"</span>,</span>
+<span id="annotated-cell-27-3" class="hljs-ln-code"><a href="#annotated-cell-27-3"></a>    <span class="st">"attributes"</span>: {</span>
+<a class="code-annotation-anchor hljs-ln-code" data-target-cell="annotated-cell-27" data-target-annotation="1" onclick="event.preventDefault();" href="">1</a><span id="annotated-cell-27-4" class="code-annotation-target hljs-ln-code"><a href="#annotated-cell-27-4"></a>        <span class="st">"might"</span>: <span class="dv">35</span>,</span>
+<span id="annotated-cell-27-5" class="hljs-ln-code"><a href="#annotated-cell-27-5"></a>        <span class="st">"Agility"</span>: <span class="dv">65</span>, </span>
+<span id="annotated-cell-27-6" class="hljs-ln-code"><a href="#annotated-cell-27-6"></a>        <span class="st">"Vitality"</span>: <span class="dv">12</span>,</span>
+<a class="code-annotation-anchor hljs-ln-code" data-target-cell="annotated-cell-27" data-target-annotation="2" onclick="event.preventDefault();" href="">2</a><span id="annotated-cell-27-7" class="code-annotation-target hljs-ln-code"><a href="#annotated-cell-27-7"></a>        <span class="st">"Insight"</span>: <span class="st">"39"</span>,</span>
+<span id="annotated-cell-27-8" class="hljs-ln-code"><a href="#annotated-cell-27-8"></a>        <span class="st">"Arcana"</span>: <span class="dv">16</span>,</span>
+<span id="annotated-cell-27-9" class="hljs-ln-code"><a href="#annotated-cell-27-9"></a>        <span class="st">"Presence"</span>: <span class="dv">11</span>,</span>
+<span id="annotated-cell-27-10" class="hljs-ln-code"><a href="#annotated-cell-27-10"></a>    },</span>
+<span id="annotated-cell-27-11" class="hljs-ln-code"><a href="#annotated-cell-27-11"></a>}</span>
+<span id="annotated-cell-27-12" class="hljs-ln-code"><a href="#annotated-cell-27-12"></a></span>
+<span id="annotated-cell-27-13" class="hljs-ln-code"><a href="#annotated-cell-27-13"></a><span class="bu">print</span>(character)</span><div class="code-annotation-gutter-bg hljs-ln-code"></div><div class="code-annotation-gutter hljs-ln-code"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-27" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-27" data-code-lines="4" data-code-annotation="1">“might” is an undefined item in type “Attributes”</span>
+</dd>
+<dt data-target-cell="annotated-cell-27" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-27" data-code-lines="7" data-code-annotation="2">“Literal[‘Big Mistake’]” is not assignable to “int”</span>
+</dd>
+</dl>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>{'name': 'Aelar', 'attributes': {'might': 35, 'Agility': 65, 'Vitality': 12, 'Insight': '39', 'Arcana': 16, 'Presence': 11}}</code></pre>
+</div>
+</div>
+</section>
+<section id="section-29" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title"></h2>
+<h2 data-id="title">
+Let’s add runtime protection using Pydantic
+</h2>
+<div id="8003ccd8" class="cell" data-execution_count="25">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29" data-code-line-numbers="2"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb29-1" class="hljs-ln-code"><a href=""></a><span class="im">from</span> typing <span class="im">import</span> Literal, Annotated</span>
+<span id="cb29-2" class="hljs-ln-code"><a href=""></a><span class="im">from</span> pydantic <span class="im">import</span> BaseModel, Field, ConfigDict</span>
+<span id="cb29-3" class="hljs-ln-code"><a href=""></a></span>
+<span id="cb29-4" class="hljs-ln-code"><a href=""></a></span>
+<span id="cb29-5" class="hljs-ln-code"><a href=""></a>AttributeName <span class="op">=</span> Literal[</span>
+<span id="cb29-6" class="hljs-ln-code"><a href=""></a>    <span class="st">"Might"</span>,</span>
+<span id="cb29-7" class="hljs-ln-code"><a href=""></a>    <span class="st">"Agility"</span>,</span>
+<span id="cb29-8" class="hljs-ln-code"><a href=""></a>    <span class="st">"Vitality"</span>,</span>
+<span id="cb29-9" class="hljs-ln-code"><a href=""></a>    <span class="st">"Insight"</span>,</span>
+<span id="cb29-10" class="hljs-ln-code"><a href=""></a>    <span class="st">"Arcana"</span>,</span>
+<span id="cb29-11" class="hljs-ln-code"><a href=""></a>    <span class="st">"Presence"</span>,</span>
+<span id="cb29-12" class="hljs-ln-code"><a href=""></a>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="section-30" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title"></h2>
+<h2 data-id="title">
+Attach metadata to a type without changing its meaning.
+</h2>
+<div id="434d61ff" class="cell" data-execution_count="26">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30" data-code-line-numbers="15-22"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb30-1" class="hljs-ln-code"><a href=""></a><span class="im">from</span> typing <span class="im">import</span> Literal, Annotated</span>
+<span id="cb30-2" class="hljs-ln-code"><a href=""></a><span class="im">from</span> pydantic <span class="im">import</span> BaseModel, Field, ConfigDict</span>
+<span id="cb30-3" class="hljs-ln-code"><a href=""></a></span>
+<span id="cb30-4" class="hljs-ln-code"><a href=""></a></span>
+<span id="cb30-5" class="hljs-ln-code"><a href=""></a>AttributeName <span class="op">=</span> Literal[</span>
+<span id="cb30-6" class="hljs-ln-code"><a href=""></a>    <span class="st">"Might"</span>,</span>
+<span id="cb30-7" class="hljs-ln-code"><a href=""></a>    <span class="st">"Agility"</span>,</span>
+<span id="cb30-8" class="hljs-ln-code"><a href=""></a>    <span class="st">"Vitality"</span>,</span>
+<span id="cb30-9" class="hljs-ln-code"><a href=""></a>    <span class="st">"Insight"</span>,</span>
+<span id="cb30-10" class="hljs-ln-code"><a href=""></a>    <span class="st">"Arcana"</span>,</span>
+<span id="cb30-11" class="hljs-ln-code"><a href=""></a>    <span class="st">"Presence"</span>,</span>
+<span id="cb30-12" class="hljs-ln-code"><a href=""></a>]</span>
+<span id="cb30-13" class="hljs-ln-code"><a href=""></a></span>
+<span id="cb30-14" class="hljs-ln-code"><a href=""></a></span>
+<span id="cb30-15" class="hljs-ln-code"><a href=""></a>AttributeValue <span class="op">=</span> Annotated[</span>
+<span id="cb30-16" class="hljs-ln-code"><a href=""></a>    <span class="bu">int</span>, </span>
+<span id="cb30-17" class="hljs-ln-code"><a href=""></a>    Field(</span>
+<span id="cb30-18" class="hljs-ln-code"><a href=""></a>        description<span class="op">=</span><span class="st">"Attribute value can be between 1 and 100"</span>,</span>
+<span id="cb30-19" class="hljs-ln-code"><a href=""></a>        ge<span class="op">=</span><span class="dv">1</span>, </span>
+<span id="cb30-20" class="hljs-ln-code"><a href=""></a>        le<span class="op">=</span><span class="dv">100</span></span>
+<span id="cb30-21" class="hljs-ln-code"><a href=""></a>        ),</span>
+<span id="cb30-22" class="hljs-ln-code"><a href=""></a>    ]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="section-31" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title"></h2>
+<div id="4bcb3897" class="cell" data-execution_count="27">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31" data-code-line-numbers="25-27"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb31-1" class="hljs-ln-code"><a href=""></a><span class="im">from</span> typing <span class="im">import</span> Annotated</span>
+<span id="cb31-2" class="hljs-ln-code"><a href=""></a><span class="im">from</span> enum <span class="im">import</span> Enum</span>
+<span id="cb31-3" class="hljs-ln-code"><a href=""></a><span class="im">from</span> pydantic <span class="im">import</span> BaseModel, ConfigDict, Field</span>
+<span id="cb31-4" class="hljs-ln-code"><a href=""></a></span>
+<span id="cb31-5" class="hljs-ln-code"><a href=""></a>BaseAttrValue <span class="op">=</span> Annotated[<span class="bu">int</span>, Field(ge<span class="op">=</span><span class="dv">1</span>, le<span class="op">=</span><span class="dv">100</span>)]</span>
+<span id="cb31-6" class="hljs-ln-code"><a href=""></a></span>
+<span id="cb31-7" class="hljs-ln-code"><a href=""></a></span>
+<span id="cb31-8" class="hljs-ln-code"><a href=""></a><span class="kw">class</span> Attributes(BaseModel):</span>
+<span id="cb31-9" class="hljs-ln-code"><a href=""></a>    model_config <span class="op">=</span> ConfigDict(validate_assignment<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb31-10" class="hljs-ln-code"><a href=""></a></span>
+<span id="cb31-11" class="hljs-ln-code"><a href=""></a>    might: Annotated[</span>
+<span id="cb31-12" class="hljs-ln-code"><a href=""></a>        BaseAttrValue, Field(alias<span class="op">=</span><span class="st">"Might"</span>, description<span class="op">=</span><span class="st">"Physical strength"</span>)</span>
+<span id="cb31-13" class="hljs-ln-code"><a href=""></a>    ]</span>
+<span id="cb31-14" class="hljs-ln-code"><a href=""></a>    agility: Annotated[</span>
+<span id="cb31-15" class="hljs-ln-code"><a href=""></a>        BaseAttrValue, Field(alias<span class="op">=</span><span class="st">"Agility"</span>, description<span class="op">=</span><span class="st">"Speed and reflexes"</span>)</span>
+<span id="cb31-16" class="hljs-ln-code"><a href=""></a>    ]</span>
+<span id="cb31-17" class="hljs-ln-code"><a href=""></a>    vitality: Annotated[</span>
+<span id="cb31-18" class="hljs-ln-code"><a href=""></a>        BaseAttrValue, Field(alias<span class="op">=</span><span class="st">"Vitality"</span>, description<span class="op">=</span><span class="st">"Health and endurance"</span>)</span>
+<span id="cb31-19" class="hljs-ln-code"><a href=""></a>    ]</span>
+<span id="cb31-20" class="hljs-ln-code"><a href=""></a>    insight: Annotated[</span>
+<span id="cb31-21" class="hljs-ln-code"><a href=""></a>        BaseAttrValue, Field(alias<span class="op">=</span><span class="st">"Insight"</span>, description<span class="op">=</span><span class="st">"Perception and discernment"</span>)</span>
+<span id="cb31-22" class="hljs-ln-code"><a href=""></a>    ]</span>
+<span id="cb31-23" class="hljs-ln-code"><a href=""></a>    arcana: Annotated[</span>
+<span id="cb31-24" class="hljs-ln-code"><a href=""></a>        BaseAttrValue, Field(alias<span class="op">=</span><span class="st">"Arcana"</span>, description<span class="op">=</span><span class="st">"Master arcane subjects"</span>)</span>
+<span id="cb31-25" class="hljs-ln-code"><a href=""></a>    ]</span>
+<span id="cb31-26" class="hljs-ln-code"><a href=""></a>    presence: Annotated[</span>
+<span id="cb31-27" class="hljs-ln-code"><a href=""></a>        BaseAttrValue, Field(alias<span class="op">=</span><span class="st">"Presence"</span>, description<span class="op">=</span><span class="st">"Charisma and influence"</span>)</span>
+<span id="cb31-28" class="hljs-ln-code"><a href=""></a>    ]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="section-32" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title"></h2>
+<div id="98d3cf57" class="cell" data-execution_count="28">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb32-1" class="hljs-ln-code"><a href=""></a><span class="im">from</span> typing <span class="im">import</span> Annotated</span>
+<span id="cb32-2" class="hljs-ln-code"><a href=""></a><span class="im">from</span> enum <span class="im">import</span> Enum</span>
+<span id="cb32-3" class="hljs-ln-code"><a href=""></a><span class="im">from</span> pydantic <span class="im">import</span> BaseModel, ConfigDict, Field</span>
+<span id="cb32-4" class="hljs-ln-code"><a href=""></a></span>
+<span id="cb32-5" class="hljs-ln-code"><a href=""></a>BaseAttrValue <span class="op">=</span> Annotated[<span class="bu">int</span>, Field(ge<span class="op">=</span><span class="dv">1</span>, le<span class="op">=</span><span class="dv">100</span>)]</span>
+<span id="cb32-6" class="hljs-ln-code"><a href=""></a></span>
+<span id="cb32-7" class="hljs-ln-code"><a href=""></a></span>
+<span id="cb32-8" class="hljs-ln-code"><a href=""></a><span class="kw">class</span> Attributes(BaseModel):</span>
+<span id="cb32-9" class="hljs-ln-code"><a href=""></a>    model_config <span class="op">=</span> ConfigDict(validate_assignment<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb32-10" class="hljs-ln-code"><a href=""></a></span>
+<span id="cb32-11" class="hljs-ln-code"><a href=""></a>    might: Annotated[</span>
+<span id="cb32-12" class="hljs-ln-code"><a href=""></a>        BaseAttrValue, Field(alias<span class="op">=</span><span class="st">"Might"</span>, description<span class="op">=</span><span class="st">"Physical strength"</span>)</span>
+<span id="cb32-13" class="hljs-ln-code"><a href=""></a>    ]</span>
+<span id="cb32-14" class="hljs-ln-code"><a href=""></a>    agility: Annotated[</span>
+<span id="cb32-15" class="hljs-ln-code"><a href=""></a>        BaseAttrValue, Field(alias<span class="op">=</span><span class="st">"Agility"</span>, description<span class="op">=</span><span class="st">"Speed and reflexes"</span>)</span>
+<span id="cb32-16" class="hljs-ln-code"><a href=""></a>    ]</span>
+<span id="cb32-17" class="hljs-ln-code"><a href=""></a>    vitality: Annotated[</span>
+<span id="cb32-18" class="hljs-ln-code"><a href=""></a>        BaseAttrValue, Field(alias<span class="op">=</span><span class="st">"Vitality"</span>, description<span class="op">=</span><span class="st">"Health and endurance"</span>)</span>
+<span id="cb32-19" class="hljs-ln-code"><a href=""></a>    ]</span>
+<span id="cb32-20" class="hljs-ln-code"><a href=""></a>    insight: Annotated[</span>
+<span id="cb32-21" class="hljs-ln-code"><a href=""></a>        BaseAttrValue, Field(alias<span class="op">=</span><span class="st">"Insight"</span>, description<span class="op">=</span><span class="st">"Perception and discernment"</span>)</span>
+<span id="cb32-22" class="hljs-ln-code"><a href=""></a>    ]</span>
+<span id="cb32-23" class="hljs-ln-code"><a href=""></a>    arcana: Annotated[</span>
+<span id="cb32-24" class="hljs-ln-code"><a href=""></a>        BaseAttrValue, Field(alias<span class="op">=</span><span class="st">"Arcana"</span>, description<span class="op">=</span><span class="st">"Master arcane subjects"</span>)</span>
+<span id="cb32-25" class="hljs-ln-code"><a href=""></a>    ]</span>
+<span id="cb32-26" class="hljs-ln-code"><a href=""></a>    presence: Annotated[</span>
+<span id="cb32-27" class="hljs-ln-code"><a href=""></a>        BaseAttrValue, Field(alias<span class="op">=</span><span class="st">"Presence"</span>, description<span class="op">=</span><span class="st">"Charisma and influence"</span>)</span>
+<span id="cb32-28" class="hljs-ln-code"><a href=""></a>    ]</span>
+<span id="cb32-29" class="hljs-ln-code"><a href=""></a></span>
+<span id="cb32-30" class="hljs-ln-code"><a href=""></a></span>
+<span id="cb32-31" class="hljs-ln-code"><a href=""></a><span class="kw">class</span> Character(BaseModel):</span>
+<span id="cb32-32" class="hljs-ln-code"><a href=""></a>    name: <span class="bu">str</span></span>
+<span id="cb32-33" class="hljs-ln-code"><a href=""></a>    attributes: Attributes</span>
+<span id="cb32-34" class="hljs-ln-code"><a href=""></a></span>
+<span id="cb32-35" class="hljs-ln-code"><a href=""></a></span>
+<span id="cb32-36" class="hljs-ln-code"><a href=""></a><span class="kw">class</span> UpdateAttributeRequest(BaseModel):</span>
+<span id="cb32-37" class="hljs-ln-code"><a href=""></a>    character_id: </span>
+<span id="cb32-38" class="hljs-ln-code"><a href=""></a></span>
+<span id="cb32-39" class="hljs-ln-code"><a href=""></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-error">
+<div class="ansi-escaped-output">
+<pre>  <span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[28]</span><span class="ansi-green-fg">, line 39</span>
+<span class="ansi-red-fg">    </span><span class="ansi-red-fg">)</span>
+    ^
+<span class="ansi-red-fg">SyntaxError</span><span class="ansi-red-fg">:</span> unmatched ')'
+</pre>
 </div>
 </div>
 </div>
@@ -474,7 +1197,7 @@ John Doe
         previewLinks: false,
 
         // Transition style (none/fade/slide/convex/concave/zoom)
-        transition: 'fade',
+        transition: 'slide',
 
         // Transition speed (default/fast/slow)
         transitionSpeed: 'fast',

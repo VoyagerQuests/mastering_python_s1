@@ -8,7 +8,7 @@ from domain import Character
 
 app = FastAPI()
 
+
 @app.post("/characters", response_model=Character)
 def create_character(character: Character) -> Character:
     return character
-

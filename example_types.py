@@ -22,6 +22,7 @@ import math
 # 1. Built-in classes: int, str, list, dict, tuple
 # ------------------------------------------------------------
 
+
 def square(x: int) -> int:
     return x * x
 
@@ -38,6 +39,7 @@ point: tuple[int, int] = (10, 20)
 # ------------------------------------------------------------
 # 2. Standard library classes: datetime, pathlib, uuid, decimal, ipaddress
 # ------------------------------------------------------------
+
 
 def is_future(ts: datetime) -> bool:
     return ts > datetime.now()
@@ -93,6 +95,7 @@ except ImportError:
 # 4. User-defined classes
 # ------------------------------------------------------------
 
+
 class Character:
     def __init__(self, name: str, level: int) -> None:
         self.name = name
@@ -117,6 +120,7 @@ def strongest(characters: list[Character]) -> Character:
 # ------------------------------------------------------------
 # 5. Abstract Base Classes (collections.abc)
 # ------------------------------------------------------------
+
 
 def sum_all(values: Iterable[int]) -> int:
     return sum(values)
@@ -146,6 +150,7 @@ def drain(it: Iterator[int]) -> int:
 # ------------------------------------------------------------
 # 6. typing + types constructs
 # ------------------------------------------------------------
+
 
 def average(values: list[int]) -> float:
     return sum(values) / len(values)
