@@ -421,7 +421,7 @@ class Character(BaseModel):
 <h2 data-id="title">Partial update function using Pydantic validation</h2>
 
 ``` {python}
-#| code-line-numbers: "34-47"
+#| code-line-numbers: "43-50"
 
 import sys
 sys.tracebacklimit = 0

@@ -3,9 +3,3 @@
 # Avoid storing output files in the same directory as source files
 project:
   output-dir: .quarto/_output
-
-
-# execute:
-#   cache: false
-#   keep-intermediate-files: false
-#   keep-ipynb: false
