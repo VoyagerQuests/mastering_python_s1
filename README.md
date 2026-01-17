@@ -84,3 +84,9 @@ The goal is not just to *write Python*, but to **master it**.
 
 Welcome aboard.  
 Your journey into **Mastering Python** starts here.
+
+## License
+
+This project is licensed under the MIT License.
+You are free to use, modify, and reuse the code in your own projects,
+including commercial ones. See the [LICENSE](LICENSE) file for details.
