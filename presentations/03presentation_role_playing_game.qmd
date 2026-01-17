@@ -14,10 +14,6 @@ format:
       error: true
 theme: dark
 ---
-## {auto-animate=true}
-<h2 data-id="title">What is this function’s expected type?</h2>
-
-
 ## {auto-animate="true"}
 <h2 data-id="title">Manage character data in a role-playing game</h2>
 
@@ -50,7 +46,9 @@ def update_attribute(character, attribute_name, int):
                 "Might": int,
                 "Agility": int,
                 "Vitality": int,
-                ...
+                "Insight": int,
+                "Arcana": int,
+                "Presence": int,
             }
         }
 
@@ -73,7 +71,23 @@ def update_attribute(character, attribute_name, int):
 
 ``` {python}
 
-#| code-line-numbers: "|3,4"
+#| code-line-numbers: "|19-20"
+"""
+        character: a dictionary representing the character.
+        Expected structure:
+        {
+            "name": str,
+            "attributes": {
+                "Might": int,
+                "Agility": int,
+                "Vitality": int,
+                "Insight": int,
+                "Arcana": int,
+                "Presence": int,
+            }
+        }
+"""
+
 character: Character = {
     "name": "Aelar",
     "attribute": {
@@ -113,7 +127,31 @@ AttributeName = Literal[
 ]
 
 ```
-<h2 data-id="title">Still just a type annotation - no runtime protection.</h2>
+<h2 data-id="title">Example of IDE Type Guidance for Literal</h2>
+<img src="images/literal_type_guidance.png"
+     style="width:90%; display:block; margin:auto;" />
+
+## {auto-animate="true"}
+<h2 data-id="title">Literal restricts to one of a fixed set of exact values</h2>
+
+``` {python}
+from typing import Literal
+
+
+AttributeName = Literal[
+    "Might",
+    "Agility",
+    "Vitality",
+    "Insight",
+    "Arcana",
+    "Presence",
+]
+
+```
+<h2 data-id="title">Example of IDE Type Error for Literal</h2>
+<img src="images/literal_type_error.png"
+     style="width:90%; display:block; margin:auto;" />
+
 
 ## {auto-animate=true}
 <h2 data-id="title">TypedDict defines a dictionary’s shape.</h2>
@@ -142,6 +180,7 @@ class Attributes(TypedDict):
     Presence: int
 
 ```
+<h2 data-id="title">Example of IDE Type Guidance for Literal</h2>
 
 ## {auto-animate="true"}
 <h2 data-id="title">This shows types built by composing other types</h2>
