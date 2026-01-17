@@ -1,0 +1,207 @@
+---
+title: "Flee You Fools"
+format:
+  revealjs:
+    width: 1600
+    height: 1200
+    margin: 0.1
+    css: styles.css
+    transition: slide
+    transition-speed: fast
+    execute:
+      echo: true
+      ansi: false
+      error: true
+theme: dark
+---
+## {auto-animate=true}
+<h2 data-id="title">What is this function’s expected type?</h2>
+
+```{python}
+def total_character_count(words):
+    total = 0
+    for char in words:
+        total += len(char)
+    return total
+```
+
+## {auto-animate=true}
+<h2 data-id="title">No IDE guidance on correct usage</h2>
+
+```{python}
+def total_character_count(words):
+    total = 0
+    for char in words:
+        total += len(char)
+    return total
+
+print(
+    "Total character count: ",
+    total_character_count("Flee you fools! You shall not pass!") 
+) 
+
+```
+
+## {auto-animate=true}
+<h2 data-id="title">No IDE guidance on correct usage</h2>
+
+```{.python}
+def total_character_count(words):
+    total = 0
+    for char in words:
+        total += len(char)
+    return total
+
+print(
+    "Total character count: ",
+    total_character_count(["Flee ", "you ", "fools! ",
+                        "You ", "shall ", "not ", "pass!"]), 
+) 
+
+```
+
+## {auto-animate=true}
+<h2 data-id="title">No IDE guidance on correct usage</h2>
+
+```{python}
+def total_character_count(words):
+    total = 0
+    for char in words:
+        total += len(char)
+    return total
+
+print(
+    "Total character count: ",
+    total_character_count(["Flee ", "you ", "fools! ",
+                        "You ", "shall ", "not ", "pass!"]), 
+) 
+
+```
+
+## {auto-animate=true}
+<h2 data-id="title">No IDE guidance on correct usage</h2>
+
+```{.python}
+def total_character_count(words):
+    total = 0
+    for char in words:
+        total += len(char)
+    return total
+
+print( # <1>
+    "Total character count: ",
+    total_character_count([("Flee ", "you ", "fools! "),
+                        ("You ", "shall ", "not ", "pass!")]), 
+) 
+```
+1. Is this a valid function call?
+
+## {auto-animate=true}
+<h2 data-id="title">No warnings - issues appear only when executed</h2>
+
+```{python}
+def total_character_count(words):
+    total = 0
+    for char in words:
+        total += len(char)
+    return total
+
+print("Total character count: ",
+     total_character_count([("Flee","you","fools!"),("You","shall","not","pass!")])) # <1>
+```
+1. No type hint is shown!
+
+## {auto-animate=true}
+<h2 data-id="title">Type: expects a string OR a list of strings and returns an integer</h2>
+
+```{python}
+#| code-line-numbers: "|1"
+
+def total_character_count(words: str | list[str]) -> int:
+    total = 0
+    for char in words:
+        total += len(char)
+    return total
+```
+
+## {auto-animate=true}
+<h2 data-id="title">Type checker now gives a clear warning</h2>
+
+```{python}
+def total_character_count(words: str | list[str]) -> int:
+    total = 0
+    for char in words:
+        total += len(char)
+    return total
+
+print(
+    "Total character count: ",
+    total_character_count("Flee you fools! You shall not pass!") 
+) 
+
+print(
+    "Total character count: ",
+    total_character_count(["Flee ", "you ", "fools! ",
+                        "You ", "shall ", "not ", "pass!"]), 
+) 
+
+print( # <1>
+    "Total character count: ",
+    total_character_count([("Flee ", "you ", "fools! "),
+                        ("You ", "shall ", "not ", "pass!")]), 
+) 
+```
+1. Argument of type "list[str | tuple[str, str, str, str]]" cannot be assigned to parameter "words" of type "str | list[str]"
+
+## {auto-animate="true"}
+
+<h2 data-id="title">Type checker now gives a clear warning</h2>
+
+
+<img src="images/type_complaint.png"
+     style="width:90%; display:block; margin:auto;" />
+
+## {auto-animate="true"}
+
+<h2 data-id="title">Clear type guidance</h2>
+
+<img src="images/type_hinting.png"
+     style="width:75%; display:block; margin:auto;" />
+
+
+## {auto-animate="true"}
+<h2 data-id="title">Safe and flexible functions with clear contracts</h2>
+
+
+``` {python}
+#| code-line-numbers: "|1-2"
+from collections.abc import Iterable
+
+def total_character_count(words: Iterable[str]) -> int:
+    total = 0
+    for char in words:
+        total += len(char)
+    return total
+```
+
+## {auto-animate="true"}
+<h2 data-id="title">The magic of type hints / annotations!</h2>
+
+``` {python}
+from collections.abc import Iterable
+
+def total_character_count(words: Iterable[str]) -> int:
+    total = 0
+    for char in words:
+        total += len(char)
+    return total
+
+print("Count: ",total_character_count(["Hello", " world!"]))  # list of strings
+print("Count: ",total_character_count(("Hello", " world!")))  # tuple of strings
+print("Count: ",total_character_count({"Hello", " world!"}))  # set of strings
+print("Count: ",total_character_count(word for word in ["Hello", " world!"])) # generator yielding strings
+print("Count: ",total_character_count(iter(["Hello", " world!"]))) # iterator of strings
+print("Count: ",total_character_count("Hello world!"))  
+print("Count: ",total_character_count([("Hello"," world!")])) # <1>
+```
+1. Argument of type "Literal[12345]" cannot be assigned to parameter "words" of type "Iterable[str]"

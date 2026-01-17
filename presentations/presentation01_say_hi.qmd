@@ -1,0 +1,100 @@
+---
+title: "Say Hi"
+format:
+  revealjs:
+    width: 1600
+    height: 1200
+    margin: 0.1
+    css: styles.css
+    transition: slide
+    transition-speed: fast
+    execute:
+      echo: true
+      ansi: false
+      error: true
+theme: dark
+---
+
+## {auto-animate=true}
+<h2 data-id="title">No type hints / annotations</h2>
+
+```{python}
+def say_hi(name):
+    return f"Hey {name.strip().title()}!"
+```
+
+## {auto-animate=true}
+<h2 data-id="title">Comments get stale quickly</h2>
+
+```{python}
+#| code-line-numbers: "|2-5,8"
+def say_hi(name):
+    """
+    Input: name: str (no other type supported)
+    Output: str
+    """
+    return f"Hey {name.strip().title()}!"
+```
+
+## {auto-animate="true"}
+<h2 data-id="title">Correct usage...</h2>
+
+```{python}
+def say_hi(name):
+    """
+    Input: name: str (no other type supported)
+    Output: str
+    """
+    return f"Hey {name.strip().title()}!"
+
+print(say_hi("  zerbial supra "))
+```
+## {auto-animate=true}
+<h2 data-id="title">Incorrect usage...no type checker warning</h2>
+
+```{python}
+#| code-line-numbers: "10"
+def say_hi(name):
+    """
+    Input: name: str (no other type supported)
+    Output: str
+    """
+    return f"Hey {name.strip().title()}!"
+
+print(say_hi(["  arion silvaris "])) # <1>
+```
+1. No type hint is shown!
+
+## {auto-animate=true}
+<h2 data-id="title">With type hints / annotations</h2>
+
+```{python}
+#| code-line-numbers: "|1"
+def say_hi(name: str) -> str:
+    return f"Hey {name.strip().title()}!" 
+
+```
+
+## {auto-animate=true}
+<h2 data-id="title">Type checker warnings will now guide you</h2>
+
+```{.python}
+def say_hi(name: str) -> str:
+    return f"Hey {name.strip().title()}!" 
+
+print(say_hi(["  boromir denethorian "])) # <1>
+
+```
+1. Argument of type "list[str]" cannot be assigned to parameter "name" of type "str" in function "say_hi"
+
+## {auto-animate=true}
+<h2 data-id="title">Python execution remain unchanged</h2>
+
+```{python}
+def say_hi(name: str) -> str:
+    return f"Hey {name.strip().title()}!" 
+
+print(say_hi(["  boromir denethorian "])) # <1>
+
+```
+1. Argument of type "list[str]" cannot be assigned to parameter "name" of type "str" in function "say_hi"

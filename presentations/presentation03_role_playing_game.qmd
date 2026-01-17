@@ -1,0 +1,596 @@
+---
+title: "Role-playing Game"
+format:
+  revealjs:
+    width: 1600
+    height: 1200
+    margin: 0.1
+    css: styles.css
+    transition: slide
+    transition-speed: fast
+    execute:
+      echo: true
+      ansi: false
+      error: true
+theme: dark
+---
+## {auto-animate=true}
+<h2 data-id="title">What is this function’s expected type?</h2>
+
+
+## {auto-animate="true"}
+<h2 data-id="title">Manage character data in a role-playing game</h2>
+
+``` {python}
+def update_attribute(character, attribute_name, new_value):
+
+    if attribute_name not in character["attributes"]:
+        raise ValueError("Unknown attribute")
+
+    character["attributes"][attribute_name] = new_value
+
+    return character
+```
+<h3 data-id="title">We cannot determine the contract from this code</h2>
+
+
+## {auto-animate="true"}
+<h2 data-id="title">Comment-based type definitions</h2>
+
+``` {python}
+def update_attribute(character, attribute_name, int):
+    """
+    Update a character's attribute by replacing it with a passed in value.
+
+    character: a dictionary representing the character.
+        Expected structure:
+        {
+            "name": str,
+            "attributes": {
+                "Might": int,
+                "Agility": int,
+                "Vitality": int,
+                ...
+            }
+        }
+
+    attribute_name: the name of the attribute to update (string)
+    delta: the amount to add or subtract (integer)
+
+    Returns the updated character dictionary.
+    """
+
+    if attribute_name not in character["attributes"]:
+        raise ValueError("Unknown attribute")
+
+    character["attributes"][attribute_name] += delta
+
+    return character
+```
+
+## {auto-animate="true"}
+<h2 data-id="title">Spot the mistakes</h2>
+
+``` {python}
+
+#| code-line-numbers: "|3,4"
+character: Character = {
+    "name": "Aelar",
+    "attribute": {
+        "might": 10,
+        "Agility": 8,
+        "Vitality": 12,
+        "Insight": 14,
+        "Arcana": 16,
+        "Presence": 11,
+    },
+}
+
+print(character)
+```
+
+## {auto-animate="true"}
+<h2 data-id="title">A perfect function call breaks!</h2>
+
+``` {python}
+update_attribute(character, "Might", 50)
+```
+
+## {auto-animate="true"}
+<h2 data-id="title">Literal restricts to one of a fixed set of exact values</h2>
+
+``` {python}
+from typing import Literal
+
+
+AttributeName = Literal[
+    "Might",
+    "Agility",
+    "Vitality",
+    "Insight",
+    "Arcana",
+    "Presence",
+]
+
+```
+<h2 data-id="title">Still just a type annotation - no runtime protection.</h2>
+
+## {auto-animate=true}
+<h2 data-id="title">TypedDict defines a dictionary’s shape.</h2>
+
+``` {python}
+#| code-line-numbers: "|14-20"
+from typing import TypedDict, Literal
+
+
+AttributeName = Literal[
+    "Might",
+    "Agility",
+    "Vitality",
+    "Insight",
+    "Arcana",
+    "Presence",
+]
+
+
+class Attributes(TypedDict):
+    Might: int
+    Agility: int
+    Vitality: int
+    Insight: int
+    Arcana: int
+    Presence: int
+
+```
+
+## {auto-animate="true"}
+<h2 data-id="title">This shows types built by composing other types</h2>
+
+``` {python}
+#| code-line-numbers: "|23-25"
+from typing import TypedDict, Literal
+
+
+AttributeName = Literal[
+    "Might",
+    "Agility",
+    "Vitality",
+    "Insight",
+    "Arcana",
+    "Presence",
+]
+
+
+class Attributes(TypedDict):
+    Might: int
+    Agility: int
+    Vitality: int
+    Insight: int
+    Arcana: int
+    Presence: int
+
+
+class Character(TypedDict):
+    name: str
+    attributes: Attributes
+```
+
+## {auto-animate="true"}
+<h2 data-id="title">Types will ensure correct usage of this complex function</h2>
+
+``` {python}
+#| code-line-numbers: "28-34|"
+from typing import TypedDict, Literal
+
+
+AttributeName = Literal[
+    "Might",
+    "Agility",
+    "Vitality",
+    "Insight",
+    "Arcana",
+    "Presence",
+]
+
+
+class Attributes(TypedDict):
+    Might: int
+    Agility: int
+    Vitality: int
+    Insight: int
+    Arcana: int
+    Presence: int
+
+
+class Character(TypedDict):
+    name: str
+    attributes: Attributes
+
+
+def update_attribute(
+    character: Character,
+    attribute_name: AttributeName,
+    new_value: int,
+) -> Character:
+    character["attributes"][attribute_name] = new_value
+    return character
+```
+
+## {auto-animate="true"}
+<h2 data-id="title">Example usage</h2>
+
+``` {python}
+#| code-line-numbers: ""
+character: Character = {
+    "name": "Aelar",
+    "attributes": {
+        "Might": 10,
+        "Agility": 8,
+        "Vitality": 12,
+        "Insight": 14,
+        "Arcana": 16,
+        "Presence": 11,
+    },
+}
+
+print(character)
+```
+## {auto-animate="true"}
+<h2 data-id="title">We still do not have runtime data integrity protection</h2>
+
+``` {python}
+#| code-line-numbers: ""
+character: Character = {
+    "name": "Aelar",
+    "attributes": {
+        "might": 35, # <1>
+        "Agility": 65, 
+        "Vitality": 12,
+        "Insight": "39", # <2>
+        "Arcana": 16,
+        "Presence": 11,
+    },
+}
+
+```
+1. "might" is an undefined item in type "Attributes"
+2. "Literal['Big Mistake']" is not assignable to "int"
+
+## {auto-animate="true"}
+<h2 data-id="title">We still do not have runtime data integrity protection</h2>
+
+``` {python}
+#| code-line-numbers: ""
+character: Character = {
+    "name": "Aelar",
+    "attributes": {
+        "might": 35, # <1>
+        "Agility": 65, 
+        "Vitality": 12,
+        "Insight": "39", # <2>
+        "Arcana": 16,
+        "Presence": 11,
+    },
+}
+
+print(character)
+```
+1. "might" is an undefined item in type "Attributes"
+2. "Literal['Big Mistake']" is not assignable to "int"
+
+## {auto-animate="true"}
+<h2 data-id="title">Let's combine type annotations with Pydantic</h2>
+
+``` {python}
+#| code-line-numbers: "|2"
+from typing import Annotated
+from pydantic import BaseModel, Field, ConfigDict
+```
+
+## {auto-animate="true"}
+<h2 data-id="title">Attach metadata to a type without changing its meaning</h2>
+
+``` {python}
+#| code-line-numbers: "|5-6"
+from typing import Literal, Annotated
+from pydantic import BaseModel, Field, ConfigDict
+
+
+BaseAttrValue = Annotated[int, Field(ge=1, le=100)]
+OptionalAttrValue = BaseAttrValue | None
+
+```
+
+## {auto-animate="true"}
+<h2 data-id="title">Example Pydantic BaseModel class</h2>
+
+``` {python}
+#| code-line-numbers: "8-31"
+from typing import Annotated
+from pydantic import BaseModel, ConfigDict, Field
+
+BaseAttrValue = Annotated[int, Field(ge=1, le=100)]
+OptionalAttrValue = BaseAttrValue | None
+
+
+class Attributes(BaseModel):
+    model_config = ConfigDict(
+        validate_assignment=True,
+        populate_by_name=True,
+        extra="forbid",
+    )
+
+    might: Annotated[
+        OptionalAttrValue, Field(alias="Might", description="Physical strength")
+    ] = None
+    agility: Annotated[
+        OptionalAttrValue, Field(alias="Agility", description="Speed and reflexes")
+    ] = None
+    vitality: Annotated[
+        OptionalAttrValue, Field(alias="Vitality", description="Health and endurance")
+    ] = None
+    insight: Annotated[
+        OptionalAttrValue, Field(alias="Insight", description="Perception and discernment")
+    ] = None
+    arcana: Annotated[
+        OptionalAttrValue, Field(alias="Arcana", description="Master arcane subjects")
+    ] = None
+    presence: Annotated[
+        OptionalAttrValue, Field(alias="Presence", description="Charisma and influence")
+    ] = None
+```
+
+## {auto-animate="true"}
+<h2 data-id="title">Function logic becomes simpler</h2>
+
+``` {python}
+#| code-line-numbers: "34-47|"
+from typing import Annotated
+from pydantic import BaseModel, ConfigDict, Field
+
+BaseAttrValue = Annotated[int, Field(ge=1, le=100)]
+OptionalAttrValue = BaseAttrValue | None
+
+
+class Attributes(BaseModel):
+    model_config = ConfigDict(
+        validate_assignment=True,
+        populate_by_name=True,
+        extra="forbid",
+    )
+
+    might: Annotated[
+        OptionalAttrValue, Field(alias="Might", description="Physical strength")
+    ] = None
+    agility: Annotated[
+        OptionalAttrValue, Field(alias="Agility", description="Speed and reflexes")
+    ] = None
+    vitality: Annotated[
+        OptionalAttrValue, Field(alias="Vitality", description="Health and endurance")
+    ] = None
+    insight: Annotated[
+        OptionalAttrValue, Field(alias="Insight", description="Perception and discernment")
+    ] = None
+    arcana: Annotated[
+        OptionalAttrValue, Field(alias="Arcana", description="Master arcane subjects")
+    ] = None
+    presence: Annotated[
+        OptionalAttrValue, Field(alias="Presence", description="Charisma and influence")
+    ] = None
+
+
+class Character(BaseModel):
+    name: str
+    attributes: Attributes
+
+
+def update_attributes(
+    character: Character,
+    new_attributes: Attributes,
+) -> None:
+    updates = new_attributes.model_dump(exclude_unset=True)
+
+    for field, value in updates.items():
+        setattr(character.attributes, field, value)
+```
+
+## {auto-animate="true"}
+<h2 data-id="title">Creating a Pydantic-based object</h2>
+``` {python}
+# Create an attribute object
+attributes1 = Attributes(
+    might=1, agility=1, vitality=1, insight=1, arcana=1, presence=1
+)
+# Create a character named Silvara using the attribute object
+silvara = Character(name="Silvara", attributes=attributes1)
+print("Character before update:")
+print(silvara.model_dump_json())
+```
+
+## {auto-animate="true"}
+<h2 data-id="title">Multiple updates</h2>
+
+``` {python}
+#| code-line-numbers: "10-13"
+
+# Create an attribute object
+attributes1 = Attributes(
+    might=1, agility=1, vitality=1, insight=1, arcana=1, presence=1
+)
+# Create a character named Silvara using the attribute object
+silvara = Character(name="Silvara", attributes=attributes1)
+print("Character before update:")
+print(silvara.model_dump_json())
+
+# Update attributes (Correct)
+update_attributes(silvara, Attributes(might=5, arcana=10, presence=15))
+print("Character after update")
+print(silvara.model_dump_json())
+```
+
+## {auto-animate="true"}
+<h2 data-id="title">Support for updating multiple attributes in one call</h2>
+
+``` {python}
+#| code-line-numbers: ""
+
+
+# Update attributes (Invalid)
+update_attributes(silvara, Attributes(might=120, arcana=10, presence=15))
+print("Character after update")
+print(silvara.model_dump_json())
+```
+
+## {auto-animate="true"}
+<h2 data-id="title">Results of the update</h2>
+
+``` {python}
+#| code-line-numbers: ""
+
+print("Character after update")
+print(silvara.model_dump_json())
+```
+
+## {auto-animate="true"}
+<h2 data-id="title">Invalid attributes are now rejected</h2>
+
+``` {python}
+#| code-line-numbers: ""
+data = {
+    "name": "Aelar",
+    "attributes": {
+        "mightt": 35, # <1>
+        "Agility": 65, 
+        "Vitality": 12,
+        "Insight": 39,
+        "Arcana": 16,
+        "Presence": 11,
+    },
+}
+
+character: Character = Character.model_validate(data)
+
+print(character)
+```
+1. mightt is an invalid argument.
+
+## {auto-animate="true"}
+<h2 data-id="title">Pydantic type coercion</h2>
+
+``` {python}
+#| code-line-numbers: ""
+data = {
+    "name": "Aelar",
+    "attributes": {
+        "Might": 35, 
+        "Agility": 65, 
+        "Vitality": 12,
+        "Insight": "39", # <1>
+        "Arcana": 16,
+        "Presence": 11,
+    },
+}
+
+character: Character = Character.model_validate(data)
+
+print(character)
+```
+1. Pydantic type coercion will by default automatically convert "35":string to 35:int
+
+## {auto-animate="true"}
+<h2 data-id="title">Pydantic's populate_by_name setting</h2>
+
+``` {python}
+#| code-line-numbers: ""
+data = {
+    "name": "Aelar",
+    "attributes": {
+        "Might": 35, 
+        "agility": 65, # <1>
+        "Vitality": 12,
+        "Insight": "39", 
+        "Arcana": 16,
+        "Presence": 11,
+    },
+}
+
+character: Character = Character.model_validate(data)
+
+print(character)
+```
+1. populate_by_name allows you to use attribute alias or name
+
+## {auto-animate="true"}
+<h2 data-id="title">Type information can be used by other frameworks</h2>
+
+``` {python}
+#| code-line-numbers: ""
+from typing import Annotated
+from pydantic import BaseModel, ConfigDict, Field
+
+BaseAttrValue = Annotated[int, Field(ge=1, le=100)]
+OptionalAttrValue = BaseAttrValue | None
+
+
+class Attributes(BaseModel):
+    model_config = ConfigDict(
+        validate_assignment=True,
+        populate_by_name=True,
+        extra="forbid",
+    )
+
+    might: Annotated[
+        OptionalAttrValue, Field(alias="Might", description="Physical strength")
+    ] = None
+    agility: Annotated[
+        OptionalAttrValue, Field(alias="Agility", description="Speed and reflexes")
+    ] = None
+    vitality: Annotated[
+        OptionalAttrValue, Field(alias="Vitality", description="Health and endurance")
+    ] = None
+    insight: Annotated[
+        OptionalAttrValue, Field(alias="Insight", description="Perception and discernment")
+    ] = None
+    arcana: Annotated[
+        OptionalAttrValue, Field(alias="Arcana", description="Master arcane subjects")
+    ] = None
+    presence: Annotated[
+        OptionalAttrValue, Field(alias="Presence", description="Charisma and influence")
+    ] = None
+
+
+class Character(BaseModel):
+    name: str
+    attributes: Attributes
+
+
+def update_attributes(
+    character: Character,
+    new_attributes: Attributes,
+) -> None:
+    updates = new_attributes.model_dump(exclude_unset=True)
+
+    for field, value in updates.items():
+        setattr(character.attributes, field, value)
+```
+
+## {auto-animate=true}
+<h2 data-id="title">FastAPI uses Pydantic and type annotations to build API</h2>
+
+```{.python}
+#| code-line-numbers: ""
+from fastapi import FastAPI
+from domain import Character
+
+
+# -----------------------------
+# FastAPI setup
+# -----------------------------
+
+app = FastAPI()
+
+
+@app.post("/characters", response_model=Character)
+def create_character(character: Character) -> Character:
+    return character
+```

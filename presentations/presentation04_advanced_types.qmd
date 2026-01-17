@@ -1,0 +1,55 @@
+---
+title: "Advanced Type Annotations"
+format:
+  revealjs:
+    width: 1600
+    height: 1200
+    margin: 0.1
+    css: styles.css
+    transition: slide
+    transition-speed: fast
+    execute:
+      echo: true
+      ansi: false
+      error: true
+theme: dark
+---
+
+
+## {auto-animate=true}
+
+<h2 data-id="title">Generic Types</h2>
+``` {python}
+#| code-line-numbers: "8-31"
+# My Example to Show Generic Type using TypeValue instead of T
+def identity[TypeValue](x: TypeValue) -> TypeValue:
+    return x
+
+
+# Typical Convention Variable Name
+def identity2[T](x: T) -> T:
+    return x
+
+
+# Generic Pair Example
+def pair[Left, Right](a: Left, b: Right) -> tuple[Left, Right]:
+    return a, b
+
+
+# Domain Specific Example
+def echo[Message](msg: Message) -> Message:
+    return msg
+```
+
+## {auto-animate="true"}
+
+<h2 data-id="title">Prototype</h2>
+``` {python}
+from typing import Protocol
+
+
+class HasName(Protocol):
+    def get_name(self) -> str: ...
+```
+
+
