@@ -14,7 +14,10 @@ format:
       error: true
 theme: dark
 ---
-
+```{python}
+#| include: false
+%xmode Plain
+```
 
 ## {auto-animate=true}
 

@@ -14,6 +14,11 @@ format:
       error: true
 theme: dark
 ---
+```{python}
+#| include: false
+%xmode Plain
+```
+
 ## {auto-animate="true"}
 <h2 data-id="title">Manage character data in a role-playing game</h2>
 
@@ -128,8 +133,7 @@ AttributeName = Literal[
 
 ```
 <h2 data-id="title">Example of IDE Type Guidance for Literal</h2>
-<img src="images/literal_type_guidance.png"
-     style="width:90%; display:block; margin:auto;" />
+<img src="images/literal_type_guidance.png" class="test12"/>
 
 ## {auto-animate="true"}
 <h2 data-id="title">Literal restricts to one of a fixed set of exact values</h2>
@@ -149,15 +153,14 @@ AttributeName = Literal[
 
 ```
 <h2 data-id="title">Example of IDE Type Error for Literal</h2>
-<img src="images/literal_type_error.png"
-     style="width:90%; display:block; margin:auto;" />
+<img src="images/literal_type_error.png" class="test12"/>
 
 
 ## {auto-animate=true}
 <h2 data-id="title">TypedDict defines a dictionary’s shape.</h2>
 
 ``` {python}
-#| code-line-numbers: "|14-20"
+#| code-line-numbers: "14-20"
 from typing import TypedDict, Literal
 
 
@@ -180,13 +183,44 @@ class Attributes(TypedDict):
     Presence: int
 
 ```
-<h2 data-id="title">Example of IDE Type Guidance for Literal</h2>
+<h2 data-id="title">Example of IDE Type Guidance for TypedDict</h2>
+<img src="images/typeddict_type_guidance.png" class="test12"/>
 
-## {auto-animate="true"}
-<h2 data-id="title">This shows types built by composing other types</h2>
+## {auto-animate=true}
+<h2 data-id="title">TypedDict defines a dictionary’s shape.</h2>
 
 ``` {python}
-#| code-line-numbers: "|23-25"
+#| code-line-numbers: "14-20"
+from typing import TypedDict, Literal
+
+
+AttributeName = Literal[
+    "Might",
+    "Agility",
+    "Vitality",
+    "Insight",
+    "Arcana",
+    "Presence",
+]
+
+
+class Attributes(TypedDict):
+    Might: int
+    Agility: int
+    Vitality: int
+    Insight: int
+    Arcana: int
+    Presence: int
+
+```
+<h2 data-id="title">Example of IDE Type Error for TypedDict</h2>
+<img src="images/typeddict_type_error.png" class="test12"/>
+
+## {auto-animate="true"}
+<h2 data-id="title">TypedDict defines a dictionary’s shape.</h2>
+
+``` {python}
+#| code-line-numbers: "14-25"
 from typing import TypedDict, Literal
 
 
@@ -215,10 +249,10 @@ class Character(TypedDict):
 ```
 
 ## {auto-animate="true"}
-<h2 data-id="title">Types will ensure correct usage of this complex function</h2>
+<h2 data-id="title">Updates a character attribute using type-restricted keys</h2>
 
 ``` {python}
-#| code-line-numbers: "28-34|"
+#| code-line-numbers: "28-34"
 from typing import TypedDict, Literal
 
 
@@ -275,7 +309,7 @@ character: Character = {
 print(character)
 ```
 ## {auto-animate="true"}
-<h2 data-id="title">We still do not have runtime data integrity protection</h2>
+<h2 data-id="title">The Type Checker will now catch mistakes early</h2>
 
 ``` {python}
 #| code-line-numbers: ""
@@ -293,7 +327,7 @@ character: Character = {
 
 ```
 1. "might" is an undefined item in type "Attributes"
-2. "Literal['Big Mistake']" is not assignable to "int"
+2. "Literal['39']" is not assignable to "int"
 
 ## {auto-animate="true"}
 <h2 data-id="title">We still do not have runtime data integrity protection</h2>
@@ -315,7 +349,7 @@ character: Character = {
 print(character)
 ```
 1. "might" is an undefined item in type "Attributes"
-2. "Literal['Big Mistake']" is not assignable to "int"
+2. "Literal['39']" is not assignable to "int"
 
 ## {auto-animate="true"}
 <h2 data-id="title">Let's combine type annotations with Pydantic</h2>
@@ -344,7 +378,7 @@ OptionalAttrValue = BaseAttrValue | None
 <h2 data-id="title">Example Pydantic BaseModel class</h2>
 
 ``` {python}
-#| code-line-numbers: "8-31"
+#| code-line-numbers: "8-36"
 from typing import Annotated
 from pydantic import BaseModel, ConfigDict, Field
 
@@ -377,13 +411,21 @@ class Attributes(BaseModel):
     presence: Annotated[
         OptionalAttrValue, Field(alias="Presence", description="Charisma and influence")
     ] = None
+
+class Character(BaseModel):
+    name: str
+    attributes: Attributes
 ```
 
 ## {auto-animate="true"}
-<h2 data-id="title">Function logic becomes simpler</h2>
+<h2 data-id="title">Partial update function using Pydantic validation</h2>
 
 ``` {python}
-#| code-line-numbers: "34-47|"
+#| code-line-numbers: "34-47"
+
+import sys
+sys.tracebacklimit = 0
+
 from typing import Annotated
 from pydantic import BaseModel, ConfigDict, Field
 
@@ -468,11 +510,13 @@ print(silvara.model_dump_json())
 ```
 
 ## {auto-animate="true"}
-<h2 data-id="title">Support for updating multiple attributes in one call</h2>
+<h2 data-id="title">Annoted type constraints are enforced by Pydantic</h2>
 
 ``` {python}
 #| code-line-numbers: ""
 
+import sys
+sys.tracebacklimit = 0
 
 # Update attributes (Invalid)
 update_attributes(silvara, Attributes(might=120, arcana=10, presence=15))

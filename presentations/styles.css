@@ -1,12 +1,20 @@
 
 .reveal pre.sourceCode code {
   font-size: 1.13em !important; 
-  max-height: none !important;
+  max-height: 1000px !important;
 }
 
 .reveal .sourceCode {
     padding: 1px !important;
     scrollbar-width: none;
+}
+
+.test12 {
+    width: 70% !important;
+    height: auto !important;
+    max-height: 400px !important;
+    display: block !important;
+    margin: auto !important;
 }
 
 /* Adjust cell output styling for better visibility */
@@ -16,7 +24,7 @@
 }
 
 .reveal pre code {
-    max-height: 600px;
+    max-height: 600px !important;
 }
 
 /* Increase font size and line height for better readability */
@@ -38,6 +46,9 @@
     font-size: 1.2rem;
     line-height: 1.2;
     padding: 5px;
+      overflow: hidden;
+  overflow-wrap: break-word;
+  /* max-height: 400px; */
 }   
 
 .cell-output-error pre::before {
