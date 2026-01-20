@@ -18,7 +18,7 @@ Current episodes include:
 - **Episode 1 – Mastering uv**  
   An overview of the crazy amazing uv package management tool and how you can use it to manage packages and virtual environments.
 
-- **Episode 2 – Mastering Type Hints**  
+- **Episode 2 – Mastering Python Type Hints**  
   Demonstrating how Python’s type system improves clarity, tooling, and correctness - we also touch on Pydantic in this episode.
 
 > 📌 **Important:**  
