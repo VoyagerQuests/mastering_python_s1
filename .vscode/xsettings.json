@@ -68,7 +68,8 @@
 // Cursor
 "editor.cursorBlinking": "solid",
 
-"workbench.colorTheme": "Default Dark Modern"
+// Color Theme
+"workbench.colorTheme": "Default Dark Modern",
 
 "files.exclude": {
   "**/.git": true,
