@@ -34,8 +34,8 @@ Current episodes include:
 
 ## 🧭 How This Repository Is Organized
 
-- **One repository for the series** https://github.com/VoyagerQuests/mastering_python_s1
-- **One branch per episode** mastering_python_type_hints
+- **One repository for the series** 
+- **One branch per episode** 
 - **Every episode's code and content stands on it's own**
 - **You do not have to watch previous episodes to follow along**
 
