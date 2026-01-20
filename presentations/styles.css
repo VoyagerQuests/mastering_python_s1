@@ -1,15 +1,18 @@
 
+/* Source code height and font size adjustments */
 .reveal pre.sourceCode code {
   font-size: 1.13em !important; 
   max-height: 1000px !important;
 }
 
+/* Source code padding and scrollbar */
 .reveal .sourceCode {
     padding: 1px !important;
     scrollbar-width: none;
 }
 
-.test12 {
+/* Output section images adjustments */
+.output_section_image {
     width: 70% !important;
     height: auto !important;
     max-height: 400px !important;

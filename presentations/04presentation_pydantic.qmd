@@ -1,5 +1,5 @@
 ---
-title: "Role-playing Game"
+title: "TypedDict | Literal to Pydantic"
 format:
   revealjs:
     width: 1600
@@ -14,245 +14,17 @@ format:
       error: true
 theme: dark
 ---
+
 ```{python}
 #| include: false
 %xmode Plain
 ```
 
-## {auto-animate="true"}
-<h2 data-id="title">Manage character data in a role-playing game</h2>
+## {data-visibility="hidden"}
+<h2 data-id="title">From Literal and TypedDict to Pydantic</h2>
 
 ``` {python}
-def update_attribute(character, attribute_name, new_value):
-
-    if attribute_name not in character["attributes"]:
-        raise ValueError("Unknown attribute")
-
-    character["attributes"][attribute_name] = new_value
-
-    return character
-```
-<h3 data-id="title">We cannot determine the contract from this code</h2>
-
-
-## {auto-animate="true"}
-<h2 data-id="title">Comment-based type definitions</h2>
-
-``` {python}
-def update_attribute(character, attribute_name, int):
-    """
-    Update a character's attribute by replacing it with a passed in value.
-
-    character: a dictionary representing the character.
-        Expected structure:
-        {
-            "name": str,
-            "attributes": {
-                "Might": int,
-                "Agility": int,
-                "Vitality": int,
-                "Insight": int,
-                "Arcana": int,
-                "Presence": int,
-            }
-        }
-
-    attribute_name: the name of the attribute to update (string)
-    delta: the amount to add or subtract (integer)
-
-    Returns the updated character dictionary.
-    """
-
-    if attribute_name not in character["attributes"]:
-        raise ValueError("Unknown attribute")
-
-    character["attributes"][attribute_name] += delta
-
-    return character
-```
-
-## {auto-animate="true"}
-<h2 data-id="title">Spot the mistakes</h2>
-
-``` {python}
-
-#| code-line-numbers: "|19-20"
-"""
-        character: a dictionary representing the character.
-        Expected structure:
-        {
-            "name": str,
-            "attributes": {
-                "Might": int,
-                "Agility": int,
-                "Vitality": int,
-                "Insight": int,
-                "Arcana": int,
-                "Presence": int,
-            }
-        }
-"""
-
-character: Character = {
-    "name": "Aelar",
-    "attribute": {
-        "might": 10,
-        "Agility": 8,
-        "Vitality": 12,
-        "Insight": 14,
-        "Arcana": 16,
-        "Presence": 11,
-    },
-}
-
-print(character)
-```
-
-## {auto-animate="true"}
-<h2 data-id="title">A perfect function call breaks!</h2>
-
-``` {python}
-update_attribute(character, "Might", 50)
-```
-
-## {auto-animate="true"}
-<h2 data-id="title">Literal restricts to one of a fixed set of exact values</h2>
-
-``` {python}
-from typing import Literal
-
-
-AttributeName = Literal[
-    "Might",
-    "Agility",
-    "Vitality",
-    "Insight",
-    "Arcana",
-    "Presence",
-]
-
-```
-<h2 data-id="title">Example of IDE Type Guidance for Literal</h2>
-<img src="images/literal_type_guidance.png" class="test12"/>
-
-## {auto-animate="true"}
-<h2 data-id="title">Literal restricts to one of a fixed set of exact values</h2>
-
-``` {python}
-from typing import Literal
-
-
-AttributeName = Literal[
-    "Might",
-    "Agility",
-    "Vitality",
-    "Insight",
-    "Arcana",
-    "Presence",
-]
-
-```
-<h2 data-id="title">Example of IDE Type Error for Literal</h2>
-<img src="images/literal_type_error.png" class="test12"/>
-
-
-## {auto-animate=true}
-<h2 data-id="title">TypedDict defines a dictionary’s shape.</h2>
-
-``` {python}
-#| code-line-numbers: "14-20"
-from typing import TypedDict, Literal
-
-
-AttributeName = Literal[
-    "Might",
-    "Agility",
-    "Vitality",
-    "Insight",
-    "Arcana",
-    "Presence",
-]
-
-
-class Attributes(TypedDict):
-    Might: int
-    Agility: int
-    Vitality: int
-    Insight: int
-    Arcana: int
-    Presence: int
-
-```
-<h2 data-id="title">Example of IDE Type Guidance for TypedDict</h2>
-<img src="images/typeddict_type_guidance.png" class="test12"/>
-
-## {auto-animate=true}
-<h2 data-id="title">TypedDict defines a dictionary’s shape.</h2>
-
-``` {python}
-#| code-line-numbers: "14-20"
-from typing import TypedDict, Literal
-
-
-AttributeName = Literal[
-    "Might",
-    "Agility",
-    "Vitality",
-    "Insight",
-    "Arcana",
-    "Presence",
-]
-
-
-class Attributes(TypedDict):
-    Might: int
-    Agility: int
-    Vitality: int
-    Insight: int
-    Arcana: int
-    Presence: int
-
-```
-<h2 data-id="title">Example of IDE Type Error for TypedDict</h2>
-<img src="images/typeddict_type_error.png" class="test12"/>
-
-## {auto-animate="true"}
-<h2 data-id="title">TypedDict defines a dictionary’s shape.</h2>
-
-``` {python}
-#| code-line-numbers: "14-25"
-from typing import TypedDict, Literal
-
-
-AttributeName = Literal[
-    "Might",
-    "Agility",
-    "Vitality",
-    "Insight",
-    "Arcana",
-    "Presence",
-]
-
-
-class Attributes(TypedDict):
-    Might: int
-    Agility: int
-    Vitality: int
-    Insight: int
-    Arcana: int
-    Presence: int
-
-
-class Character(TypedDict):
-    name: str
-    attributes: Attributes
-```
-
-## {auto-animate="true"}
-<h2 data-id="title">Updates a character attribute using type-restricted keys</h2>
-
-``` {python}
-#| code-line-numbers: "28-34"
+#| code-line-numbers: ""
 from typing import TypedDict, Literal
 
 
@@ -289,7 +61,7 @@ def update_attribute(
     return character
 ```
 
-## {auto-animate="true"}
+## {data-visibility="hidden"}
 <h2 data-id="title">Example usage</h2>
 
 ``` {python}
@@ -308,7 +80,8 @@ character: Character = {
 
 print(character)
 ```
-## {auto-animate="true"}
+
+## {data-visibility="hidden"}
 <h2 data-id="title">The Type Checker will now catch mistakes early</h2>
 
 ``` {python}
@@ -329,7 +102,7 @@ character: Character = {
 1. "might" is an undefined item in type "Attributes"
 2. "Literal['39']" is not assignable to "int"
 
-## {auto-animate="true"}
+## {data-visibility="hidden"}
 <h2 data-id="title">We still do not have runtime data integrity protection</h2>
 
 ``` {python}
@@ -365,7 +138,7 @@ from pydantic import BaseModel, Field, ConfigDict
 
 ``` {python}
 #| code-line-numbers: "|5-6"
-from typing import Literal, Annotated
+from typing import Annotated
 from pydantic import BaseModel, Field, ConfigDict
 
 
@@ -378,7 +151,7 @@ OptionalAttrValue = BaseAttrValue | None
 <h2 data-id="title">Example Pydantic BaseModel class</h2>
 
 ``` {python}
-#| code-line-numbers: "8-36"
+#| code-line-numbers: "8-36|10|11,16|12|34-36"
 from typing import Annotated
 from pydantic import BaseModel, ConfigDict, Field
 
@@ -421,7 +194,7 @@ class Character(BaseModel):
 <h2 data-id="title">Partial update function using Pydantic validation</h2>
 
 ``` {python}
-#| code-line-numbers: "43-50"
+#| code-line-numbers: "43-50|44|45|46|47|48-50"
 
 import sys
 sys.tracebacklimit = 0
@@ -469,7 +242,7 @@ def update_attributes(
     character: Character,
     new_attributes: Attributes,
 ) -> None:
-    updates = new_attributes.model_dump(exclude_unset=True)
+    updates = new_attributes.model_dump(exclude_unset=True, exclude_none=True)
 
     for field, value in updates.items():
         setattr(character.attributes, field, value)
@@ -603,13 +376,36 @@ print(character)
 ```
 1. populate_by_name allows you to use attribute alias or name
 
-## {auto-animate="true"}
-<h2 data-id="title">Type information can be used by other frameworks</h2>
+## {auto-animate=true}
+<h2 data-id="title">FastAPI uses Pydantic and type annotations to build API</h2>
+
+```{.python}
+#| code-line-numbers: ""
+from fastapi import FastAPI
+from domain import Character
+
+
+# -----------------------------
+# FastAPI setup
+# -----------------------------
+
+app = FastAPI()
+
+
+@app.post("/characters", response_model=Character)
+def create_character(character: Character) -> Character:
+    return character
+```
+
+## {auto-animate=true}
+
+<h2 data-id="title">Refactor to clean architecture</h2>
 
 ``` {python}
-#| code-line-numbers: ""
+#| code-line-numbers: "36-40|42-50|52-54|56-63|65-73,43-54"
 from typing import Annotated
 from pydantic import BaseModel, ConfigDict, Field
+from nanoid import generate
 
 BaseAttrValue = Annotated[int, Field(ge=1, le=100)]
 OptionalAttrValue = BaseAttrValue | None
@@ -642,28 +438,54 @@ class Attributes(BaseModel):
     ] = None
 
 
-class Character(BaseModel):
+# Domain Layer Class
+class CharacterModel(BaseModel):
+    id: str
     name: str
     attributes: Attributes
 
+# Data Transfer Object Models
+class CreateCharacterRequestDTO(BaseModel):
+    name: str
+    attributes: Attributes
+
+class CreateCharacterResponseDTO(BaseModel):
+    id: str
+    name: str
+    attributes: Attributes
+
+# Application Layer Functions
+def generate_character_id() -> str:
+    return "char_" + generate(size=10)
 
 def update_attributes(
-    character: Character,
+    character: CharacterModel,
     new_attributes: Attributes,
 ) -> None:
-    updates = new_attributes.model_dump(exclude_unset=True)
+    updates = new_attributes.model_dump(exclude_unset=True, exclude_none=True)
 
     for field, value in updates.items():
         setattr(character.attributes, field, value)
+
+def create_character_use_case(
+    request: CreateCharacterRequestDTO,
+) -> CreateCharacterResponseDTO:
+    # Convert DTO → domain model
+    character = CharacterModel(
+        id=generate_character_id(),
+        name=request.name,
+        attributes=request.attributes,
+    )
 ```
 
 ## {auto-animate=true}
-<h2 data-id="title">FastAPI uses Pydantic and type annotations to build API</h2>
 
-```{.python}
-#| code-line-numbers: ""
+<h2 data-id="title">Delivery Layer: FastAPI</h2>
+
+``` {python}
+#| code-line-numbers: "9|12|13-14|15-16|"
 from fastapi import FastAPI
-from domain import Character
+from domain import CharacterModel, CreateCharacterRequestDTO, CreateCharacterResponseDTO, create_character_use_case
 
 
 # -----------------------------
@@ -673,7 +495,39 @@ from domain import Character
 app = FastAPI()
 
 
-@app.post("/characters", response_model=Character)
-def create_character(character: Character) -> Character:
-    return character
+@app.post("/characters", response_model=CreateCharacterResponseDTO)
+def create_character(
+    request: CreateCharacterRequestDTO,
+) -> CreateCharacterResponseDTO:
+    return create_character_use_case(request)
+
+```
+
+## {auto-animate=true}
+
+<h2 data-id="title">Delivery Layer: Command Line Interface</h2>
+
+``` {python}
+#| code-line-numbers: "1|2|4-9"
+import fire
+import sys
+from domain import Attributes, CreateCharacterRequestDTO, create_character_use_case
+
+sys.tracebacklimit = 0 # Hide traceback for cleaner CLI output
+
+class CharacterCLI:
+    def create(self, name: str, **kwargs):
+        attributes = Attributes(**kwargs)
+        
+        request = CreateCharacterRequestDTO(name=name, attributes=attributes)
+        response = create_character_use_case(request)
+        
+        return response.model_dump()
+
+def main() -> None:
+    fire.Fire(CharacterCLI)
+
+if __name__ == "__main__":
+    main()
+
 ```

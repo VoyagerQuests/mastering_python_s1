@@ -1,5 +1,5 @@
 ---
-title: "Say Hi"
+title: "Foundational Types and Collections"
 format:
   revealjs:
     width: 1600
@@ -14,6 +14,8 @@ format:
       error: true
 theme: dark
 ---
+
+
 ```{python}
 #| include: false
 %xmode Plain
@@ -63,7 +65,7 @@ print(say_hi("  zerbial supra "))
 <h2 data-id="title">Incorrect usage...no type checker warning</h2>
 
 ```{python}
-#| code-line-numbers: "10"
+#| code-line-numbers: "4-11"
 def say_hi(name):
     return f"Hey {name.strip().title()}!"
 
@@ -82,7 +84,7 @@ print(say_hi(["  arion silvaris "])) # <1>
 <h2 data-id="title">Comparison without and with type hints / annotations</h2>
 
 ```{python}
-#| code-line-numbers: "|11-13"
+#| code-line-numbers: "1-9|11-13"
 def say_hi(name):
     return f"Hey {name.strip().title()}!"
     
@@ -122,4 +124,44 @@ print(say_hi(["  boromir denethorian "])) # <1>
 
 ```
 1. Argument of type "list[str]" cannot be assigned to parameter "name" of type "str" in function "say_hi"
+
 ## {auto-animate=true}
+<h2 data-id="title">Basic Types</h2>
+
+```{python}
+#| code-line-numbers: "1-2|3|4|5|6|7"
+
+# Basic Types
+count: int = 3
+ratio: float = 0.75
+flag: bool = True
+name: str = "Alice"
+data: bytes = b"\x00\x01"
+value: None = None
+
+```
+
+## {auto-animate=true}
+<h2 data-id="title">Built-In Collections</h2>
+```{python}
+#| code-line-numbers: "11-17|11-12|13|14|15|16|17"
+#| 
+# Basic Types
+#| code-line-numbers: "1-9|11-13"
+count: int = 3
+ratio: float = 0.75
+flag: bool = True
+name: str = "Alice"
+data: bytes = b"\x00\x01"
+value: None = None
+
+
+# Built-in collections
+nums: list[int] = [1, 2, 3]
+pair: tuple[int, str] = (1, "a")
+coords: tuple[float, ...] = (1.0, 2.0, 3.0)
+tags: set[str] = {"a", "b"}
+frozen: frozenset[int] = frozenset({1, 2})
+mapping: dict[str, int] = {"a": 1}
+
+```

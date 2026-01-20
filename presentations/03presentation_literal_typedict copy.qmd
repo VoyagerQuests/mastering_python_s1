@@ -1,0 +1,352 @@
+---
+title: "Literal & Typeddict"
+format:
+  revealjs:
+    width: 1600
+    height: 1200
+    margin: 0.1
+    css: styles.css
+    transition: slide
+    transition-speed: fast
+    execute:
+      echo: true
+      ansi: false
+      error: true
+theme: dark
+---
+```{python}
+#| include: false
+%xmode Plain
+```
+
+## {auto-animate="true"}
+<h2 data-id="title">Manage character data in a role-playing game</h2>
+
+``` {python}
+def update_attribute(character, attribute_name, new_value):
+
+    if attribute_name not in character["attributes"]:
+        raise ValueError("Unknown attribute")
+
+    character["attributes"][attribute_name] = new_value
+
+    return character
+```
+<h3 data-id="title">We cannot determine the contract from this code</h2>
+
+
+## {auto-animate="true"}
+<h2 data-id="title">Comment-based type definitions</h2>
+
+``` {python}
+def update_attribute(character, attribute_name, int):
+    """
+    Update a character's attribute by replacing it with a passed in value.
+
+    character: a dictionary representing the character.
+        Expected structure:
+        {
+            "name": str,
+            "attributes": {
+                "Might": int,
+                "Agility": int,
+                "Vitality": int,
+                "Insight": int,
+                "Arcana": int,
+                "Presence": int,
+            }
+        }
+
+    attribute_name: the name of the attribute to update (string)
+    delta: the amount to add or subtract (integer)
+
+    Returns the updated character dictionary.
+    """
+
+    if attribute_name not in character["attributes"]:
+        raise ValueError("Unknown attribute")
+
+    character["attributes"][attribute_name] += delta
+
+    return character
+```
+
+## {auto-animate="true"}
+<h2 data-id="title">Spot the mistakes</h2>
+
+``` {python}
+
+#| code-line-numbers: "|19-20"
+"""
+        character: a dictionary representing the character.
+        Expected structure:
+        {
+            "name": str,
+            "attributes": {
+                "Might": int,
+                "Agility": int,
+                "Vitality": int,
+                "Insight": int,
+                "Arcana": int,
+                "Presence": int,
+            }
+        }
+"""
+
+character: Character = {
+    "name": "Aelar",
+    "attribute": {
+        "might": 10,
+        "Agility": 8,
+        "Vitality": 12,
+        "Insight": 14,
+        "Arcana": 16,
+        "Presence": 11,
+    },
+}
+
+print(character)
+```
+
+## {auto-animate="true"}
+<h2 data-id="title">A perfect function call breaks!</h2>
+
+``` {python}
+update_attribute(character, "Might", 50)
+```
+
+## {auto-animate="true"}
+<h2 data-id="title">Literal restricts to one of a fixed set of exact values</h2>
+
+``` {python}
+from typing import Literal
+
+
+AttributeName = Literal[
+    "Might",
+    "Agility",
+    "Vitality",
+    "Insight",
+    "Arcana",
+    "Presence",
+]
+
+```
+<h2 data-id="title">Example of IDE Type Guidance for Literal</h2>
+<img src="images/literal_type_guidance.png" class="output_section_image"/>
+
+## {auto-animate="true"}
+<h2 data-id="title">Literal restricts to one of a fixed set of exact values</h2>
+
+``` {python}
+from typing import Literal
+
+
+AttributeName = Literal[
+    "Might",
+    "Agility",
+    "Vitality",
+    "Insight",
+    "Arcana",
+    "Presence",
+]
+
+```
+<h2 data-id="title">Example of IDE Type Error for Literal</h2>
+<img src="images/literal_type_error.png" class="output_section_image"/>
+
+
+## {auto-animate=true}
+<h2 data-id="title">TypedDict defines a dictionary’s shape.</h2>
+
+``` {python}
+#| code-line-numbers: "14-20"
+from typing import TypedDict, Literal
+
+
+AttributeName = Literal[
+    "Might",
+    "Agility",
+    "Vitality",
+    "Insight",
+    "Arcana",
+    "Presence",
+]
+
+
+class Attributes(TypedDict):
+    Might: int
+    Agility: int
+    Vitality: int
+    Insight: int
+    Arcana: int
+    Presence: int
+
+```
+<h2 data-id="title">Example of IDE Type Guidance for TypedDict</h2>
+<img src="images/typeddict_type_guidance.png" class="output_section_image"/>
+
+## {auto-animate=true}
+<h2 data-id="title">TypedDict defines a dictionary’s shape.</h2>
+
+``` {python}
+#| code-line-numbers: "14-20"
+from typing import TypedDict, Literal
+
+
+AttributeName = Literal[
+    "Might",
+    "Agility",
+    "Vitality",
+    "Insight",
+    "Arcana",
+    "Presence",
+]
+
+
+class Attributes(TypedDict):
+    Might: int
+    Agility: int
+    Vitality: int
+    Insight: int
+    Arcana: int
+    Presence: int
+
+```
+<h2 data-id="title">Example of IDE Type Error for TypedDict</h2>
+<img src="images/typeddict_type_error.png" class="output_section_image"/>
+
+## {auto-animate="true"}
+<h2 data-id="title">TypedDict defines a dictionary’s shape</h2>
+
+``` {python}
+#| code-line-numbers: "14-25"
+from typing import TypedDict, Literal
+
+
+AttributeName = Literal[
+    "Might",
+    "Agility",
+    "Vitality",
+    "Insight",
+    "Arcana",
+    "Presence",
+]
+
+
+class Attributes(TypedDict):
+    Might: int
+    Agility: int
+    Vitality: int
+    Insight: int
+    Arcana: int
+    Presence: int
+
+
+class Character(TypedDict):
+    name: str
+    attributes: Attributes
+```
+
+## {auto-animate="true"}
+<h2 data-id="title">Updates a character attribute using type-restricted keys</h2>
+
+``` {python}
+#| code-line-numbers: "28-34"
+from typing import TypedDict, Literal
+
+
+AttributeName = Literal[
+    "Might",
+    "Agility",
+    "Vitality",
+    "Insight",
+    "Arcana",
+    "Presence",
+]
+
+
+class Attributes(TypedDict):
+    Might: int
+    Agility: int
+    Vitality: int
+    Insight: int
+    Arcana: int
+    Presence: int
+
+
+class Character(TypedDict):
+    name: str
+    attributes: Attributes
+
+
+def update_attribute(
+    character: Character,
+    attribute_name: AttributeName,
+    new_value: int,
+) -> Character:
+    character["attributes"][attribute_name] = new_value
+    return character
+```
+
+## {auto-animate="true"}
+<h2 data-id="title">Example usage</h2>
+
+``` {python}
+#| code-line-numbers: ""
+character: Character = {
+    "name": "Aelar",
+    "attributes": {
+        "Might": 10,
+        "Agility": 8,
+        "Vitality": 12,
+        "Insight": 14,
+        "Arcana": 16,
+        "Presence": 11,
+    },
+}
+
+print(character)
+```
+## {auto-animate="true"}
+<h2 data-id="title">The Type Checker will now catch mistakes early</h2>
+
+``` {python}
+#| code-line-numbers: ""
+character: Character = {
+    "name": "Aelar",
+    "attributes": {
+        "might": 35, # <1>
+        "Agility": 65, 
+        "Vitality": 12,
+        "Insight": "39", # <2>
+        "Arcana": 16,
+        "Presence": 11,
+    },
+}
+
+```
+1. "might" is an undefined item in type "Attributes"
+2. "Literal['39']" is not assignable to "int"
+
+## {auto-animate="true"}
+<h2 data-id="title">We still do not have runtime data integrity protection</h2>
+
+``` {python}
+#| code-line-numbers: ""
+character: Character = {
+    "name": "Aelar",
+    "attributes": {
+        "might": 35, # <1>
+        "Agility": 65, 
+        "Vitality": 12,
+        "Insight": "39", # <2>
+        "Arcana": 16,
+        "Presence": 11,
+    },
+}
+
+print(character)
+```
+1. "might" is an undefined item in type "Attributes"
+2. "Literal['39']" is not assignable to "int"
