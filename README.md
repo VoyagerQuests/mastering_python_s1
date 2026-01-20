@@ -10,10 +10,15 @@ This episode includes a dedicated section on **what has changed in Python 3.14**
 
 ---
 
+## 🧭 How This Repository Is Organized
+
+- **One repository for the series** https://github.com/VoyagerQuests/mastering_python_s1
+- **One branch per episode** mastering_python_type_hints
+- **Every episode's code and content stands on it's own**
+- **You do not have to watch previous episodes to follow along**
+
 ## 🎬 About This Branch
 
-- This **one episode** is part of the larger **Mastering Python Season 1** series
-- This content lives in a **branch** of the main *Mastering Python* repository
 - The branch captures the code and materials **exactly as shown in the episode**
 - The episode is broken into multiple **topics**, each supported by presentations and runnable examples
 
