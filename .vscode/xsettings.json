@@ -66,5 +66,17 @@
 //  "terminal.integrated.defaultLocation": "editor",
 
 // Cursor
-"editor.cursorBlinking": "solid"
+"editor.cursorBlinking": "solid",
+
+"workbench.colorTheme": "Default Dark Modern"
+
+"files.exclude": {
+  "**/.git": true,
+  "**/.vscode": true,
+  "**/.env": true,
+  "**/.DS_Store": true,
+  "**/.*": true,
+  "**/__pycache__": true,
+  "**/*.egg-info": true,
+}
 }
