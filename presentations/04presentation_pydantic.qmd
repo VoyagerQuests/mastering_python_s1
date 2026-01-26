@@ -508,7 +508,7 @@ def create_character(
 <h2 data-id="title">Delivery Layer: Command Line Interface</h2>
 
 ``` {python}
-#| code-line-numbers: "1|2|4-9"
+#| code-line-numbers: "1|2|4-9|"
 import fire
 import sys
 from domain import Attributes, CreateCharacterRequestDTO, create_character_use_case
@@ -523,11 +523,5 @@ class CharacterCLI:
         response = create_character_use_case(request)
         
         return response.model_dump()
-
-def main() -> None:
-    fire.Fire(CharacterCLI)
-
-if __name__ == "__main__":
-    main()
 
 ```

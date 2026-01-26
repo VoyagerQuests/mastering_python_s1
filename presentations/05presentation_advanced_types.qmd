@@ -105,6 +105,8 @@ print(greet(User()))
 
 <h2 data-id="title">Generic Protocols with Variable Types</h2>
 ``` {python}
+#| code-line-numbers: "1|4-5|8-9|12-17|20-22|25-29|"
+
 from typing import Protocol
 
 
