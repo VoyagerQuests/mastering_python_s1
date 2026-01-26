@@ -32,7 +32,7 @@ AttrValue = Annotated[
     Field(
         ge=1,
         le=100,
-        description="Attribute value (1–100).",
+        description="Attribute value.",
     ),
 ]
 OptionalAttrValue = AttrValue | None
